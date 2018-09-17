@@ -1,7 +1,7 @@
 #pragma once
-#include "Entity.h"
-#include "Texture.h"
-#include "World.h"
+#include "../Entity.h"
+#include "../Texture.h"
+#include "../World.h"
 
 enum class PlayerDirection
 {
@@ -19,7 +19,6 @@ class Player : public Entity
 {
 private:
 
-	World* mWorld;
 	Texture mPlayerTexture;
 	PlayerDirection mDirection;
 	int mSpeed; //pixels per tick
@@ -27,7 +26,7 @@ private:
 
 public:
 	Player();
-	Player(World* _world, Coordinate2D _startCoord);
+	Player(Coordinate2D _startCoord);
 	virtual ~Player();
 
 	void render() override;

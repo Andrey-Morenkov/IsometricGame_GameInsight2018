@@ -41,12 +41,48 @@ Coordinate2D World::getStartingPoint()
 	return mPosition;
 }
 
-void World::getTileCoordinates(Coordinate2D & _incomingCoordinates, Coordinate2D & _tileCoordinates)
+Coordinate2D World::getTileISOCoordinates(Coordinate2D _incomingISOCoordinates)
 {
-	float tempX = (float)_incomingCoordinates.getX() / (float)TILE_SIZE_IN_PIXELS;
-	float tempY = (float)_incomingCoordinates.getY() / (float)TILE_SIZE_IN_PIXELS;
-	_tileCoordinates.setX((int)tempX);
-	_tileCoordinates.setY((int)tempY);
+	Coordinate2D res;
+	Coordinate2D tileMapCoord = getTileCoordinatesInWorld(_incomingISOCoordinates);
+	if ((tileMapCoord.getX() < 0) || (tileMapCoord.getY() < 0))
+	{
+		return Coordinate2D(-1, -1);
+	}
+	Coordinate2D floorBegin = getStartingPoint();
+	IsometricEngine::convertIsometricTo2D(floorBegin);
+
+	res.setX(floorBegin.getX() + tileMapCoord.getX() * ((double)mTextureTiles.getWidthEachTextureTypeInPixels() / 2.0));
+	res.setY(floorBegin.getY() + tileMapCoord.getY() * (mTextureTiles.getHeightEachTextureTypeInPixels()));
+	IsometricEngine::convert2DtoIsometric(res);
+	return res;
+}
+
+Coordinate2D World::getTileCoordinatesInWorld(Coordinate2D _incomingISOCoordinates)
+{
+	double isoLeftLineCoeff = -0.5;
+	double isoRightLineCoeff = 0.5;
+	int lineStepX = TILE_SIZE_IN_PIXELS;
+	int lineStepY = TILE_SIZE_IN_PIXELS - 1;
+	//LOG_INFO("World begin (%d,%d)", mPosition.getX(), mPosition.getY());
+	LOG_INFO("Incoming coordinates (%d,%d)", _incomingISOCoordinates.getX(), _incomingISOCoordinates.getY());
+
+	Coordinate2D pureIncomingCoordinates;
+	pureIncomingCoordinates.setX(_incomingISOCoordinates.getX() - (mPosition.getX() + (mTextureTiles.getWidthEachTextureTypeInPixels() / 2)));
+	pureIncomingCoordinates.setY(_incomingISOCoordinates.getY() - mPosition.getY());
+	LOG_INFO("Pure coordinates (%d,%d)", pureIncomingCoordinates.getX(), pureIncomingCoordinates.getY());
+
+	if (pureIncomingCoordinates.getY() < 0)
+	{
+		return Coordinate2D(-1, -1);
+	}
+
+	//LOG_INFO("Pure coordinates (%d,%d)", pureIncomingCoordinates.getX(), pureIncomingCoordinates.getY());
+
+	int row = (pureIncomingCoordinates.getY() - (isoLeftLineCoeff * (double)pureIncomingCoordinates.getX())) / lineStepX;
+	int column = (pureIncomingCoordinates.getY() - (isoRightLineCoeff * (double)pureIncomingCoordinates.getX())) / lineStepY;
+
+	return Coordinate2D(row, column);
 }
 
 void World::renderFloor()

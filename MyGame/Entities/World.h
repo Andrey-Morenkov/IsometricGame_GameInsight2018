@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Entity.h"
-#include "IsometricEngine.h"
-#include "Texture.h"
+#include "../Entity.h"
+#include "../IsometricEngine.h"
+#include "../Texture.h"
 
 
 class World : public Entity
@@ -27,7 +27,8 @@ public:
 
 	void setStartingPoint(Coordinate2D _startingPoint);
 	Coordinate2D getStartingPoint();
-	void getTileCoordinates(Coordinate2D & _incomingCoordinates, Coordinate2D & _tileCoordinates);
+	Coordinate2D getTileISOCoordinates(Coordinate2D _incomingISOCoordinates);
+	Coordinate2D getTileCoordinatesInWorld(Coordinate2D _incomingISOCoordinates);
 };
 
 enum class TileType

@@ -15,20 +15,28 @@
 
 // ---------- Texture Files Settings ----------
 #define TILE_SIZE_IN_PIXELS 32
+
 #define TILE_TEXTURE_PATH "../MyGame/Textures/map_tiles.png"
 #define MOUSE_TEXTURE_PATH "../MyGame/Textures/mouse_tiles.png"
 #define WALL_TEXTURE_PATH "../MyGame/Textures/wall_tiles.png"
 #define PLAYER_TEXTURE_PATH "../MyGame/Textures/player_tiles.png"
+#define BARRIER_TEXTURE_PATH "../MyGame/Textures/barrier_tiles.png"
+#define NPC_TEXTURE_PATH "../MyGame/Textures/npc_tiles.png"
+#define CANNON_TEXTURE_PATH "../MyGame/Textures/cannon_tiles.png"
+#define FIREBALL_TEXTURE_PATH "../MyGame/Textures/fireball_tiles.png"
 
-#define TILE_TEXTURE_HEIGHT_IN_PIXELS (TILE_SIZE_IN_PIXELS-1)
+#define TILE_TEXTURE_HEIGHT_IN_PIXELS (TILE_SIZE_IN_PIXELS - 1)
 #define TILE_TEXTURE_WIDTH_IN_PIXELS (TILE_SIZE_IN_PIXELS * 2)
-
-#define WALL_TEXTURE_HEIGHT_IN_PIXELS 100
-#define WALL_TEXTURE_WIDTH_IN_PIXELS (TILE_SIZE_IN_PIXELS)
 
 #define MOUSE_TEXTURE_HEIGHT_IN_PIXELS TILE_TEXTURE_HEIGHT_IN_PIXELS
 #define MOUSE_TEXTURE_WIDTH_IN_PIXELS TILE_TEXTURE_WIDTH_IN_PIXELS
 
-#define PLAYER_TEXTURE_HEIGHT_IN_PIXELS 102
-#define PLAYER_TEXTURE_WIDTH_IN_PIXELS 70
+#define WALL_TEXTURE_HEIGHT_IN_PIXELS (100)
+#define WALL_TEXTURE_WIDTH_IN_PIXELS (TILE_SIZE_IN_PIXELS)
+
+#define PLAYER_TEXTURE_HEIGHT_IN_PIXELS (102)
+#define PLAYER_TEXTURE_WIDTH_IN_PIXELS (70)
+
+#define BARRIER_TEXTURE_HEIGHT_IN_PIXELS TILE_TEXTURE_HEIGHT_IN_PIXELS
+#define BARRIER_TEXTURE_WIDTH_IN_PIXELS TILE_TEXTURE_WIDTH_IN_PIXELS
 // ---------- /Texture Files Settings ----------

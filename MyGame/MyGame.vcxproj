@@ -130,37 +130,51 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="Core.cpp" />
+    <ClCompile Include="Entities\Barrier.cpp" />
+    <ClCompile Include="Entities\Cannon.cpp" />
+    <ClCompile Include="Entities\Fireball.cpp" />
+    <ClCompile Include="Entities\MouseCursor.cpp" />
+    <ClCompile Include="Entities\NPC.cpp" />
+    <ClCompile Include="Entities\Player.cpp" />
+    <ClCompile Include="Entities\World.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Fireball.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Initializer.cpp" />
     <ClCompile Include="IsometricEngine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Coordinate2D.cpp" />
-    <ClCompile Include="MouseCursor.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Systems\SystemRender.cpp" />
+    <ClCompile Include="Systems\SystemUpdateInput.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureWorker.cpp" />
-    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cannon.h" />
     <ClInclude Include="Core.h" />
+    <ClInclude Include="Entities\Barrier.h" />
+    <ClInclude Include="Entities\Cannon.h" />
+    <ClInclude Include="Entities\Fireball.h" />
+    <ClInclude Include="Entities\MouseCursor.h" />
+    <ClInclude Include="Entities\NPC.h" />
+    <ClInclude Include="Entities\Player.h" />
+    <ClInclude Include="Entities\World.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Coordinate2D.h" />
+    <ClInclude Include="Fireball.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="MouseCursor.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Renderable.h" />
+    <ClInclude Include="Interfaces\Renderable.h" />
+    <ClInclude Include="Interfaces\Runnable.h" />
     <ClInclude Include="ResultCode.h" />
     <ClInclude Include="Initializer.h" />
     <ClInclude Include="IsometricEngine.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="SupportMacroses.h" />
+    <ClInclude Include="System.h" />
+    <ClInclude Include="Systems\SystemRender.h" />
+    <ClInclude Include="Systems\SystemUpdateInput.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureWorker.h" />
-    <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

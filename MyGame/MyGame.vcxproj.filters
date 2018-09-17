@@ -22,6 +22,12 @@
     <Filter Include="Файлы заголовков\Interfaces">
       <UniqueIdentifier>{7055f6af-1ecd-4363-bada-bc1d87d7cd47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Systems">
+      <UniqueIdentifier>{561dc6a7-ba49-4bf0-98a0-0c22c3fd861c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Systems">
+      <UniqueIdentifier>{b544f7e4-6fbb-44dc-80b1-86fd151edc61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,17 +57,35 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="World.cpp">
-      <Filter>Исходные файлы\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="MouseCursor.cpp">
-      <Filter>Исходные файлы\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Исходные файлы\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="Cannon.cpp">
+    <ClCompile Include="Fireball.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Barrier.cpp">
+      <Filter>Исходные файлы\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Cannon.cpp">
+      <Filter>Исходные файлы\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Fireball.cpp">
+      <Filter>Исходные файлы\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\MouseCursor.cpp">
+      <Filter>Исходные файлы\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\NPC.cpp">
+      <Filter>Исходные файлы\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Player.cpp">
+      <Filter>Исходные файлы\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\World.cpp">
+      <Filter>Исходные файлы\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\SystemRender.cpp">
+      <Filter>Исходные файлы\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Systems\SystemUpdateInput.cpp">
+      <Filter>Исходные файлы\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,20 +122,44 @@
     <ClInclude Include="Game.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="World.h">
+    <ClInclude Include="System.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Fireball.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Barrier.h">
       <Filter>Файлы заголовков\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="MouseCursor.h">
+    <ClInclude Include="Entities\Cannon.h">
       <Filter>Файлы заголовков\Entities</Filter>
     </ClInclude>
-    <ClInclude Include="Renderable.h">
+    <ClInclude Include="Entities\Fireball.h">
+      <Filter>Файлы заголовков\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\MouseCursor.h">
+      <Filter>Файлы заголовков\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\NPC.h">
+      <Filter>Файлы заголовков\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Player.h">
+      <Filter>Файлы заголовков\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\World.h">
+      <Filter>Файлы заголовков\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Interfaces\Renderable.h">
       <Filter>Файлы заголовков\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Файлы заголовков\Entities</Filter>
+    <ClInclude Include="Interfaces\Runnable.h">
+      <Filter>Файлы заголовков\Interfaces</Filter>
     </ClInclude>
-    <ClInclude Include="Cannon.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Systems\SystemRender.h">
+      <Filter>Файлы заголовков\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems\SystemUpdateInput.h">
+      <Filter>Файлы заголовков\Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

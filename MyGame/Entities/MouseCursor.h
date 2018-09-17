@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Entity.h"
-#include "Texture.h"
+#include "../Entity.h"
+#include "../Texture.h"
 #include "World.h"
 
 class MouseCursor : public Entity

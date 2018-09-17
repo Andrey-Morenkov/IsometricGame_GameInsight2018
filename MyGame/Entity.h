@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Renderable.h"
+#include "./Interfaces/Renderable.h"
 #include "Coordinate2D.h"
 
 class Entity : public Renderable

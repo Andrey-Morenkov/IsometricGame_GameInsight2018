@@ -36,6 +36,14 @@ void Coordinate2D::setY(int _y)
 	mY = _y;
 }
 
+/*Vec2i Coordinate2D::makeVec()
+{
+	Vec2i res;
+	res.x = mX;
+	res.y = mY;
+	return res;
+}*/
+
 const bool operator==(const Coordinate2D & coord1, const Coordinate2D & coord2)
 {
 	if ((coord1.mX == coord2.mX) && (coord1.mY == coord2.mY))

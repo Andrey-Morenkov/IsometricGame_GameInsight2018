@@ -19,6 +19,7 @@ private:
 	bool mIsGameOver;
 
 	void mUpdateAllEntityCoordinates();
+	void mUpdateWorldMap();
 
 public:
 		

@@ -13,6 +13,7 @@ SystemGameLogic::SystemGameLogic()
 	mLastTick = 0;
 	mLastUpdatedTick = 0;
 	mUpdateInputRate = UPDATE_INPUT_RATE;
+	mPlayerCurrentStep = 0;
 }
 
 
@@ -45,6 +46,7 @@ void SystemGameLogic::addOrRemoveBarrier()
 	if (pos != (int)ResultCode::NOT_EXIST)
 	{
 		mGame->mBarriers.erase(mGame->mBarriers.begin() + pos);
+		mGame->mWorldMap.removeCollision(Vec2i(clickedTileInMapCoord.getX(), clickedTileInMapCoord.getY()));
 	}
 	else
 	{
@@ -52,10 +54,30 @@ void SystemGameLogic::addOrRemoveBarrier()
 		newBarrier->setPosition(clickedTileInIsoCoord);
 		auto newEntry = make_pair(newBarrier, clickedTileInMapCoord);
 		mGame->mBarriers.push_back(newEntry);
+		mGame->mWorldMap.addCollision(Vec2i(clickedTileInMapCoord.getX(), clickedTileInMapCoord.getY()));
 	}
 }
 
+#define FIRST_STEP 0
+
 void SystemGameLogic::setPlayerDestination()
+{
+	mPlayerPath.clear();
+	//correct position to tile center of tile
+	mGame->mPlayer.first->setPositionFromTileIsoCoords(mGame->mWorld->getTileISOCoordinatesFromISOCoords(mGame->mPlayer.first->getPosition()));
+
+	int x;
+	int y;
+	SDL_GetMouseState(&x, &y);
+
+	Coordinate2D playerMapCoord = mGame->mPlayer.second;
+	Coordinate2D clickedTileInMapCoord = mGame->mWorld->getTileMapCoordinatesFromISOCoords(Coordinate2D(x, y));
+
+	mPlayerPath = mGame->mWorldMap.findPath(Vec2i(playerMapCoord.getX(), playerMapCoord.getY()), Vec2i(clickedTileInMapCoord.getX(), clickedTileInMapCoord.getY()));
+	mPlayerCurrentStep = FIRST_STEP;	
+}
+
+void SystemGameLogic::doPlayerStep()
 {
 
 }
@@ -105,7 +127,7 @@ void SystemGameLogic::updateMouseEventAndQuitEvent()
 				{
 					case SDL_BUTTON_LEFT:
 					{
-						//TODO
+						setPlayerDestination();
 						break;
 					}
 
@@ -172,5 +194,6 @@ void SystemGameLogic::run()
 		updateInput();
 		mLastUpdatedTick = mCurrentUpdateTick;
 	}
+	doPlayerStep();
 			
 }

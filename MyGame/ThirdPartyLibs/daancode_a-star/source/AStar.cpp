@@ -3,12 +3,28 @@
 
 using namespace std::placeholders;
 
-bool AStar::Vec2i::operator == (const Vec2i& coordinates_)
+bool Vec2i::operator == (const Vec2i& coordinates_)
 {
     return (x == coordinates_.x && y == coordinates_.y);
 }
 
-AStar::Vec2i operator + (const AStar::Vec2i& left_, const AStar::Vec2i& right_)
+Vec2i::Vec2i()
+{
+}
+
+Vec2i::Vec2i(int _x, int _y)
+{
+	x = _x;
+	y = _y;
+}
+
+void Vec2i::operator=(const Vec2i & v1)
+{
+	this->x = v1.x;
+	this->y = v1.y;
+}
+
+Vec2i operator + (const Vec2i& left_, const Vec2i& right_)
 {
     return{ left_.x + right_.x, left_.y + right_.y };
 }
@@ -152,7 +168,7 @@ bool AStar::Generator::detectCollision(Vec2i coordinates_)
     return false;
 }
 
-AStar::Vec2i AStar::Heuristic::getDelta(Vec2i source_, Vec2i target_)
+Vec2i AStar::Heuristic::getDelta(Vec2i source_, Vec2i target_)
 {
     return{ abs(source_.x - target_.x),  abs(source_.y - target_.y) };
 }

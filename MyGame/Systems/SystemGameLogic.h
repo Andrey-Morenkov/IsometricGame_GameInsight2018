@@ -2,6 +2,7 @@
 
 #include "SDL.h"
 #include "../System.h"
+#include "../ThirdPartyLibs/daancode_a-star/source/AStar.hpp"
 
 class SystemGameLogic :	public System
 {
@@ -15,11 +16,14 @@ private:
 	unsigned int mLastUpdatedTick;
 	SDL_Event    mCurrentEvent;
 	const Uint8* mKeystate;
+	AStar::CoordinateList mPlayerPath;
+	int mPlayerCurrentStep;
 
 	void updateCursorPosition();
 	void updateMouseEventAndQuitEvent();
 	void updateKeyboardEvent();
 	void updateInput();
+	void doPlayerStep();
 	bool needRun();
 	bool needUpdateInput();
 

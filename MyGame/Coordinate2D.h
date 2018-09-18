@@ -1,4 +1,5 @@
 #pragma once
+#include "./ThirdPartyLibs/daancode_a-star/source/AStar.hpp"
 
 #define DEFAULT_POINT_COORDINATE 0
 
@@ -19,6 +20,8 @@ public:
 	int getY();
 	void setX(int _x);
 	void setY(int _y);
+
+	//Vec2i makeVec();
 
 	friend const bool operator == (const Coordinate2D& coord1, const Coordinate2D& coord2);
 };

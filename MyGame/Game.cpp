@@ -73,7 +73,7 @@ void Game::createNewGame()
 	mPlayer.first = currPlayer;
 	mPlayer.second = playerStartCoord;
 
-	mWorldMap.setWorldSize({MAP_WIDTH_TILES, MAP_HEIGHT_TILES});
+	mWorldMap.setWorldSize(Vec2i(MAP_WIDTH_TILES, MAP_HEIGHT_TILES));
 	mWorldMap.setHeuristic(AStar::Heuristic::euclidean);
 	mWorldMap.setDiagonalMovement(ALLOW_DIAGONAL_MOVEMENT);
 }

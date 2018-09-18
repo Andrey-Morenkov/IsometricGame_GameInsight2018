@@ -18,4 +18,4 @@
 Были использованы в качестве помощи при создании:
 * канал https://www.youtube.com/user/TheSolarString/
 * SDL wiki
-* исходный код игры OpenTTD да SDL
+* исходный код игры OpenTTD на SDL

@@ -94,6 +94,11 @@ Coordinate2D World::getTileMapCoordinatesFromISOCoords(Coordinate2D _incomingISO
 	return Coordinate2D(row, column);
 }
 
+Coordinate2D World::getTileISOProjectionFromISOCoords(Coordinate2D _incomingISOCoordinates)
+{
+	return Coordinate2D(_incomingISOCoordinates.getX() + mTextureTiles.getWidthEachTextureTypeInPixels(), _incomingISOCoordinates.getY() + mTextureTiles.getHeightEachTextureTypeInPixels());
+}
+
 void World::renderFloor()
 {
 	Coordinate2D currentPoint;
@@ -117,6 +122,12 @@ void World::renderFloor()
 	}
 }
 
+void World::renderStartFinishTiles()
+{
+	TextureWorker::renderTextureRegion(mTextureTiles, getTileISOCoordinatesFromMapCoords(MAP_START_POINT), &mTextureTiles.getTextureTypes()[(int)TileType::START]);
+	TextureWorker::renderTextureRegion(mTextureTiles, getTileISOCoordinatesFromMapCoords(MAP_FINISH_POINT), &mTextureTiles.getTextureTypes()[(int)TileType::FINISH]);
+}
+
 void World::renderWalls()
 {
 	Coordinate2D currentPoint;
@@ -131,18 +142,11 @@ void World::renderWalls()
 	IsometricEngine::convertIsometricTo2D(wallsBeginLeft);
 	IsometricEngine::convertIsometricTo2D(wallsBeginRight);
 
-	//LOG_INFO("Render walls. Starting point = (%d,%d), walls begin 2D = (%d,%d)", mStartingPoint.getX(), mStartingPoint.getY(), wallsBeginRight.getX(), wallsBeginRight.getY());
-
-	//LOG_INFO("Render walls. Corrected wallsR begin 2D = (%d,%d)", wallsBeginRight.getX(), wallsBeginRight.getY());
-	//LOG_INFO("Render walls. Corrected wallsL begin 2D = (%d,%d)", wallsBeginLeft.getX(), wallsBeginLeft.getY());
-
 	for (int i = 0; i < mWidthTiles; i++)
 	{
 		currentPoint.setX(wallsBeginRight.getX() + i * mTextureWalls.getWidthEachTextureTypeInPixels());
 		currentPoint.setY(wallsBeginRight.getY());
-		//LOG_INFO("Render walls. i = %d, current point = (%d, %d)", i, currentPoint.getX(), currentPoint.getY());
 		IsometricEngine::convert2DtoIsometric(currentPoint);
-		//LOG_INFO("Render walls. Isometric point = (%d,%d)", currentPoint.getX(), currentPoint.getY());
 		TextureWorker::renderTextureRegion(mTextureWalls, currentPoint, &mTextureWalls.getTextureTypes()[(int)WallType::RIGHT]);
 	}
 	
@@ -150,9 +154,7 @@ void World::renderWalls()
 	{
 		currentPoint.setX(wallsBeginLeft.getX());
 		currentPoint.setY(wallsBeginLeft.getY() + j * (mTextureWalls.getWidthEachTextureTypeInPixels()));
-		//LOG_INFO("Render walls. j = %d, current point = (%d, %d)", j, currentPoint.getX(), currentPoint.getY());
 		IsometricEngine::convert2DtoIsometric(currentPoint);
-		//LOG_INFO("Render walls. Isometric point = (%d,%d)", currentPoint.getX(), currentPoint.getY());
 		TextureWorker::renderTextureRegion(mTextureWalls, currentPoint, &mTextureWalls.getTextureTypes()[(int)WallType::LEFT]);
 	}
 }
@@ -160,5 +162,6 @@ void World::renderWalls()
 void World::render()
 {
 	renderFloor();
+	renderStartFinishTiles();
 	renderWalls();
 }

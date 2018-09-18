@@ -14,4 +14,6 @@ public:
 	virtual ~SystemRender();
 
 	void run() override;
+	void renderSuccessfulScreen();
+	void renderDeadScreen();
 };

@@ -88,7 +88,16 @@ void SystemGameLogic::updateCursorPosition()
 	int y;
 	SDL_GetMouseState(&x, &y);
 	Coordinate2D newcor(x, y);
-	mGame->mMouseCursor->setPosition(mGame->mWorld->getTileISOCoordinatesFromISOCoords(newcor));
+	Coordinate2D mMapPos = mGame->mWorld->getTileMapCoordinatesFromISOCoords(newcor);
+	if ((mMapPos.getX() < 0) || (mMapPos.getY() < 0) || (mMapPos.getX() > (MAP_WIDTH_TILES - 1) || (mMapPos.getY() > (MAP_HEIGHT_TILES - 1))))
+	{
+		mGame->mMouseCursor->setIsCorrect(false);
+	}
+	else
+	{
+		mGame->mMouseCursor->setIsCorrect(true);
+	}
+	mGame->mMouseCursor->setPosition(mGame->mWorld->getTileISOCoordinatesFromMapCoords(mMapPos));
 }
 
 void SystemGameLogic::updateMouseEventAndQuitEvent()
@@ -177,8 +186,8 @@ void SystemGameLogic::updateKeyboardEvent()
 
 void SystemGameLogic::updateInput()
 {
-	updateMouseEventAndQuitEvent();
 	updateCursorPosition();
+	updateMouseEventAndQuitEvent();	
 	updateKeyboardEvent();
 }
 
@@ -196,4 +205,23 @@ void SystemGameLogic::run()
 	}
 	doPlayerStep();
 			
+}
+
+void SystemGameLogic::waitUntilNotPressedAnykey()
+{
+	bool stop = false;
+	while (!stop)
+	{
+		while (SDL_PollEvent(&mCurrentEvent) != 0)
+		{
+			switch (mCurrentEvent.type)
+			{
+				case SDL_QUIT:
+				case SDL_KEYUP:
+				{
+					stop = true;
+				}
+			}
+		}
+	}
 }

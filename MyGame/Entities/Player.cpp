@@ -11,7 +11,6 @@ Player::Player()
 	mPlayerTexture.setHeightEachTextureTypeInPixels(PLAYER_TEXTURE_HEIGHT_IN_PIXELS);
 	mPlayerTexture.loadFromPath(PLAYER_TEXTURE_PATH);
 	mSpeed = 1;
-	mIsMoving = false;
 }
 
 Player::Player(Coordinate2D _startCoord) : Player()
@@ -50,11 +49,6 @@ void Player::setSpeed(int _speed)
 	mSpeed = _speed;
 }
 
-void Player::setIsMoving(bool _ismoving)
-{
-	mIsMoving = _ismoving;
-}
-
 Coordinate2D Player::getPosition()
 {
 	return mPosition;
@@ -73,9 +67,4 @@ PlayerDirection Player::getDirection()
 int Player::getSpeed()
 {
 	return mSpeed;
-}
-
-bool Player::getIsMoving()
-{
-	return mIsMoving;
 }

@@ -16,6 +16,7 @@ private:
 	Texture      mTextureWalls;
 
 	void renderFloor();
+	void renderStartFinishTiles();
 	void renderWalls();
 
 public:
@@ -32,11 +33,14 @@ public:
 	Coordinate2D getTileISOCoordinatesFromISOCoords(Coordinate2D _incomingISOCoordinates); // returns upper left corner coord of local tile
 	Coordinate2D getTileISOCoordinatesFromMapCoords(Coordinate2D _incomintMapCoordinates); // returns upper left corner coord of local tile
 	Coordinate2D getTileMapCoordinatesFromISOCoords(Coordinate2D _incomingISOCoordinates); // returns tile number ,(0,0) for example
+	Coordinate2D getTileISOProjectionFromISOCoords(Coordinate2D _incomingISOCoordinates); // returns center of tile from left upper corner
 };
 
 enum class TileType
 {
-	DEFAULT = 0
+	DEFAULT = 0,
+	START,
+	FINISH
 };
 
 enum class WallType
@@ -47,3 +51,5 @@ enum class WallType
 
 #define MAP_LEFT_DOWN_CORNER Coordinate2D(0, MAP_WIDTH_TILES - 1)
 #define MAP_RIGHT_UP_CORNER Coordinate2D(MAP_HEIGHT_TILES - 1, 0)
+#define MAP_START_POINT MAP_LEFT_DOWN_CORNER
+#define MAP_FINISH_POINT MAP_RIGHT_UP_CORNER

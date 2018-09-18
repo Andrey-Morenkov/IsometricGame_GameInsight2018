@@ -22,6 +22,15 @@ Texture::Texture(unsigned int _wholeTextureWidthInPixels, unsigned int _wholeTex
 	mHeightEachTextureTypeInPixels = _eachTextureTypeHeightInPixels;
 }
 
+Texture::Texture(unsigned int _wholeTextureWidthInPixels, unsigned int _wholeTextureHeightInPixels)
+{
+	mTextureImage = nullptr;
+	mWidthWholeTextureInPixels = _wholeTextureWidthInPixels;
+	mHeightWholeTextureInPixels = _wholeTextureHeightInPixels;
+	mWidthEachTextureTypeInPixels = _wholeTextureWidthInPixels;
+	mHeightEachTextureTypeInPixels = _wholeTextureHeightInPixels;
+}
+
 
 Texture::~Texture()
 {

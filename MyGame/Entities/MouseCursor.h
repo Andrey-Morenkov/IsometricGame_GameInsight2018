@@ -9,6 +9,7 @@ class MouseCursor : public Entity
 private:
 
 	Texture mTextureCursor;
+	bool isCorrect;
 
 public:
 	MouseCursor();
@@ -19,5 +20,7 @@ public:
 	Texture& getTextureCursor();
 	Coordinate2D getPosition();
 	void setPosition(Coordinate2D _newPosition);
+	void setIsCorrect(bool _newState);
+	bool getIsCorrect();
 };
 

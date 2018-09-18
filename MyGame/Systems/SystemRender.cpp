@@ -1,6 +1,7 @@
 #include "SystemRender.h"
 #include "../Core.h"
 #include "../Settings.h"
+#include "../TextureWorker.h"
 
 using namespace std;
 
@@ -32,7 +33,11 @@ void SystemRender::run()
 	SDL_RenderClear(mainRenderer);
 
 	mGame->mWorld->render();
-	if (mGame->mMouseCursor->getPosition().getY() >= mGame->mWorld->getStartingPoint().getY())
+	for (int i = 0; i < mGame->mBarriers.size(); i++)
+	{
+		mGame->mBarriers[i].first->render();
+	}
+	if (mGame->mMouseCursor->getIsCorrect())
 	{
 		mGame->mMouseCursor->render();
 	}	
@@ -42,10 +47,6 @@ void SystemRender::run()
 	{
 		mGame->mNPCs[i].first->render();
 	}
-	for (int i = 0; i < mGame->mBarriers.size(); i++)
-	{
-		mGame->mBarriers[i].first->render();
-	}
 	for (int i = 0; i < mGame->mCannons.size(); i++)
 	{
 		mGame->mCannons[i].first->render();
@@ -53,4 +54,20 @@ void SystemRender::run()
 
 	SDL_RenderPresent(mainRenderer);
 	mLastRenderedTick = mCurrentRenderingTick;
+}
+
+void SystemRender::renderSuccessfulScreen()
+{
+	Texture successfulScreen(SUCCESSFUL_SCREEN_WIDTH_IN_PIXELS, SUCCESSFUL_SCREEN_HIIGHT_IN_PIXELS);
+	successfulScreen.loadFromPath(SUCCESSFUL_SCREEN_TEXTURE_PATH);
+	TextureWorker::renderTextureRegion(successfulScreen, Coordinate2D((MAIN_WINDOW_WIDTH / 2 - SUCCESSFUL_SCREEN_WIDTH_IN_PIXELS / 2), (MAIN_WINDOW_HEIGHT / 2 - SUCCESSFUL_SCREEN_HIIGHT_IN_PIXELS / 2)), nullptr);
+	SDL_RenderPresent(mainRenderer);
+}
+
+void SystemRender::renderDeadScreen()
+{
+	Texture deadScreen(DEAD_SCREEN_WIDTH_IN_PIXELS, DEAD_SCREEN_HIIGHT_IN_PIXELS);
+	deadScreen.loadFromPath(DEAD_SCREEN_TEXTURE_PATH);
+	TextureWorker::renderTextureRegion(deadScreen, Coordinate2D((MAIN_WINDOW_WIDTH / 2 - DEAD_SCREEN_WIDTH_IN_PIXELS / 2), (MAIN_WINDOW_HEIGHT / 2 - DEAD_SCREEN_HIIGHT_IN_PIXELS / 2)), nullptr);
+	SDL_RenderPresent(mainRenderer);
 }

@@ -25,6 +25,16 @@ int Game::getBarrierPositionByMapCoord(Coordinate2D _possibleBarrierMapCoords)
 	return (int)ResultCode::NOT_EXIST;
 }
 
+ExitReason Game::getExitReason()
+{
+	return mWhyExit;
+}
+
+void Game::setExitReason(ExitReason _reason)
+{
+	mWhyExit = _reason;
+}
+
 void Game::mUpdateAllEntityCoordinates()
 {
 	Coordinate2D newPos = mWorld->getTileISOCoordinatesFromMapCoords(mPlayer.second);
@@ -53,6 +63,7 @@ Game::Game()
 	mWorld = nullptr;
 	mMouseCursor = nullptr;
 	mIsGameOver = false;
+	mWhyExit = ExitReason::QUIT;
 }
 
 Game::~Game()

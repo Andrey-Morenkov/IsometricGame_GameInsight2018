@@ -12,14 +12,20 @@
 #include "ResultCode.h"
 #include "ThirdPartyLibs/daancode_a-star/source/AStar.hpp"
 
+enum class ExitReason
+{
+	QUIT,
+	DEAD,
+	FINISHED
+};
+
 class Game
 {
 private:
 
 	bool mIsGameOver;
-
+	ExitReason mWhyExit;
 	void mUpdateAllEntityCoordinates();
-	void mUpdateWorldMap();
 
 public:
 		
@@ -44,6 +50,8 @@ public:
 	void changeStartingPoint(Coordinate2D _newStartingPoint);
 	
 	int getBarrierPositionByMapCoord(Coordinate2D _possibleBarrierMapCoords);
-};
 
+	ExitReason getExitReason();
+	void setExitReason(ExitReason _reason);
+};
 

@@ -21,7 +21,6 @@ private:
 	Texture mPlayerTexture;
 	PlayerDirection mDirection;
 	int mSpeed; //pixels per tick
-	bool mIsMoving;
 
 public:
 	Player();
@@ -34,12 +33,10 @@ public:
 	void setPostition(Coordinate2D _newPos);
 	void setPositionFromTileIsoCoords(Coordinate2D _targetTileLeftTopCornerCoords);
 	void setSpeed(int _speed);
-	void setIsMoving(bool _ismoving);
 	Coordinate2D getPosition();
 	Coordinate2D getDownCenterPosition(); //use this for movement
 	PlayerDirection getDirection();
 	int getSpeed();
-	bool getIsMoving();
 };
 
 

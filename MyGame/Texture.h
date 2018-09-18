@@ -26,6 +26,7 @@ public:
 
 	Texture();
 	Texture(unsigned int _wholeTextureWidthInPixels, unsigned int _wholeTextureHeightInPixels, unsigned int _eachTextureTypeWidthInPixels, unsigned int _eachTextureTypeHeightInPixels);
+	Texture(unsigned int _wholeTextureWidthInPixels, unsigned int _wholeTextureHeightInPixels);
 	~Texture();
 
 	unsigned int getWidthWholeTextureInPixels();

@@ -36,5 +36,6 @@ public:
 
 	void firstTimeSetup();
 	void run() override;
+	void waitUntilNotPressedAnykey();
 };
 

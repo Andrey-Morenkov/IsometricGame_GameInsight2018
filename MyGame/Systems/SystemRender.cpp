@@ -32,7 +32,7 @@ void SystemRender::run()
 	SDL_RenderClear(mainRenderer);
 
 	mGame->mWorld->render();
-	if (mGame->mMouseCursor->getPosition().getY() > mGame->mWorld->getStartingPoint().getY())
+	if (mGame->mMouseCursor->getPosition().getY() >= mGame->mWorld->getStartingPoint().getY())
 	{
 		mGame->mMouseCursor->render();
 	}	

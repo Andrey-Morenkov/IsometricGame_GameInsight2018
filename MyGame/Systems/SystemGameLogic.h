@@ -23,6 +23,9 @@ private:
 	bool needRun();
 	bool needUpdateInput();
 
+	void addOrRemoveBarrier();
+	void setPlayerDestination();
+
 public:
 	SystemGameLogic();
 	virtual ~SystemGameLogic();

@@ -1,3 +1,5 @@
+#include <ctime>
+
 #include "Initializer.h"
 #include "Settings.h"
 #include "SDL_image.h"
@@ -7,6 +9,7 @@
 
 void initSDLstuff(SDL_Window *& _window, SDL_Renderer *& _renderer, string _windowName)
 {
+	srand(time(0));
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS | SDL_INIT_TIMER) != (int)ResultCode::SUCCESS)
 	{
 		LOG_CRITICAL("Something went wrong in SDL_Init. Error: %s.Immediate Exit.", SDL_GetError());

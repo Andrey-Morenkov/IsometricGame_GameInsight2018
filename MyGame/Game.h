@@ -9,6 +9,8 @@
 #include "./Entities/NPC.h"
 #include "./Entities/Barrier.h"
 #include "./Entities/Cannon.h"
+#include "ResultCode.h"
+#include "ThirdPartyLibs/daancode_a-star/source/AStar.hpp"
 
 class Game
 {
@@ -22,6 +24,7 @@ public:
 		
 	World* mWorld;
 	MouseCursor* mMouseCursor;
+	AStar::Generator mWorldMap;
 
 	//map coordinates, not iso
 	pair<Player*, Coordinate2D>           mPlayer;
@@ -38,6 +41,8 @@ public:
 	void setGameOver(bool _newState);
 	void setPlayerSpawnpoint(Coordinate2D _spawnpointMapCoods); //only for setup state
 	void changeStartingPoint(Coordinate2D _newStartingPoint);
+	
+	int getBarrierPositionByMapCoord(Coordinate2D _possibleBarrierMapCoords);
 };
 
 

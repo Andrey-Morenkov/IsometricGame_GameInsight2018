@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Settings.h"
+#include "ResultCode.h"
 
 void Game::setPlayerSpawnpoint(Coordinate2D _spawnpointMapCoods)
 {
@@ -10,6 +11,18 @@ void Game::changeStartingPoint(Coordinate2D _newStartingPoint)
 {
 	mWorld->setStartingPoint(_newStartingPoint);
 	mUpdateAllEntityCoordinates();
+}
+
+int Game::getBarrierPositionByMapCoord(Coordinate2D _possibleBarrierMapCoords)
+{
+	for (int i = 0; i < mBarriers.size(); i++)
+	{
+		if (mBarriers[i].second == _possibleBarrierMapCoords)
+		{
+			return i;
+		}
+	}
+	return (int)ResultCode::NOT_EXIST;
 }
 
 void Game::mUpdateAllEntityCoordinates()
@@ -26,12 +39,12 @@ void Game::mUpdateAllEntityCoordinates()
 	for (int i = 0; i < mBarriers.size(); i++)
 	{
 		newPos = mWorld->getTileISOCoordinatesFromMapCoords(mBarriers[i].second);
-		// TO DO NPC
+		mBarriers[i].first->setPosition(newPos);
 	}
 	for (int i = 0; i < mCannons.size(); i++)
 	{
 		newPos = mWorld->getTileISOCoordinatesFromMapCoords(mCannons[i].second);
-		// TO DO NPC
+		// TO DO Cannons
 	}
 }
 
@@ -59,6 +72,10 @@ void Game::createNewGame()
 
 	mPlayer.first = currPlayer;
 	mPlayer.second = playerStartCoord;
+
+	mWorldMap.setWorldSize({MAP_WIDTH_TILES, MAP_HEIGHT_TILES});
+	mWorldMap.setHeuristic(AStar::Heuristic::euclidean);
+	mWorldMap.setDiagonalMovement(ALLOW_DIAGONAL_MOVEMENT);
 }
 
 bool Game::isGameOver()

@@ -2,6 +2,8 @@
 #include "../Settings.h"
 #include "../SupportMacroses.h"
 
+using namespace std;
+
 SystemGameLogic::SystemGameLogic()
 {
 	mKeystate = SDL_GetKeyboardState(NULL);
@@ -28,6 +30,34 @@ bool SystemGameLogic::needUpdateInput()
 { 
 	mCurrentUpdateTick = SDL_GetTicks();
 	return (((mCurrentUpdateTick - mLastUpdatedTick) >= (TICKS_IN_SECOND / mUpdateInputRate)) && !mGame->isGameOver());
+}
+
+void SystemGameLogic::addOrRemoveBarrier()
+{
+	int x;
+	int y;
+	SDL_GetMouseState(&x, &y);
+
+	Coordinate2D clickedTileInMapCoord = mGame->mWorld->getTileMapCoordinatesFromISOCoords(Coordinate2D(x, y));
+	Coordinate2D clickedTileInIsoCoord = mGame->mWorld->getTileISOCoordinatesFromISOCoords(Coordinate2D(x, y));
+	int pos = mGame->getBarrierPositionByMapCoord(clickedTileInMapCoord);
+	
+	if (pos != (int)ResultCode::NOT_EXIST)
+	{
+		mGame->mBarriers.erase(mGame->mBarriers.begin() + pos);
+	}
+	else
+	{
+		Barrier* newBarrier = new Barrier();
+		newBarrier->setPosition(clickedTileInIsoCoord);
+		auto newEntry = make_pair(newBarrier, clickedTileInMapCoord);
+		mGame->mBarriers.push_back(newEntry);
+	}
+}
+
+void SystemGameLogic::setPlayerDestination()
+{
+
 }
 
 void SystemGameLogic::updateCursorPosition()
@@ -81,7 +111,7 @@ void SystemGameLogic::updateMouseEventAndQuitEvent()
 
 					case SDL_BUTTON_RIGHT:
 					{
-						//TODO
+						addOrRemoveBarrier();
 						break;
 					}
 
@@ -142,5 +172,5 @@ void SystemGameLogic::run()
 		updateInput();
 		mLastUpdatedTick = mCurrentUpdateTick;
 	}
-		
+			
 }

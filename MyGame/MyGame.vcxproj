@@ -149,6 +149,7 @@
     <ClCompile Include="Systems\SystemRender.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureWorker.cpp" />
+    <ClCompile Include="ThirdPartyLibs\daancode_a-star\source\AStar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="Systems\SystemRender.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureWorker.h" />
+    <ClInclude Include="ThirdPartyLibs\daancode_a-star\source\AStar.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -28,6 +28,12 @@
     <Filter Include="Файлы заголовков\Systems">
       <UniqueIdentifier>{b544f7e4-6fbb-44dc-80b1-86fd151edc61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\ThirdPartyLibs">
+      <UniqueIdentifier>{f1e9e436-bbaf-46e1-82e2-363943ceed94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\ThirdPartyLibs">
+      <UniqueIdentifier>{e089ef1b-0666-437e-99a5-fcda0c7ef087}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -86,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="System.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdPartyLibs\daancode_a-star\source\AStar.cpp">
+      <Filter>Исходные файлы\ThirdPartyLibs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="Systems\SystemGameLogic.h">
       <Filter>Файлы заголовков\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdPartyLibs\daancode_a-star\source\AStar.hpp">
+      <Filter>Файлы заголовков\ThirdPartyLibs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

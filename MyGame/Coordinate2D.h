@@ -19,4 +19,6 @@ public:
 	int getY();
 	void setX(int _x);
 	void setY(int _y);
+
+	friend const bool operator == (const Coordinate2D& coord1, const Coordinate2D& coord2);
 };

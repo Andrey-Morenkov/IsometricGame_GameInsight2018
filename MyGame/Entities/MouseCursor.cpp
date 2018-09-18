@@ -1,6 +1,6 @@
 #include "MouseCursor.h"
-#include "Settings.h"
-#include "TextureWorker.h"
+#include "../Settings.h"
+#include "../TextureWorker.h"
 
 MouseCursor::MouseCursor()
 {
@@ -9,37 +9,14 @@ MouseCursor::MouseCursor()
 	mTextureCursor.loadFromPath(MOUSE_TEXTURE_PATH);
 }
 
-MouseCursor::MouseCursor(World * _world) : MouseCursor()
-{
-	mWorld = _world;
-}
-
 MouseCursor::~MouseCursor()
 {
 }
 
-void MouseCursor::getMouseTileClick()
-{
-	mPosition = mWorld->getTileISOCoordinates(mPosition);
-}
 
 void MouseCursor::render()
 {
-	getMouseTileClick();
-	if ((mPosition.getX() >= 0) && (mPosition.getY() >= 0))
-	{
-		TextureWorker::renderTextureRegion(mTextureCursor, mPosition, &mTextureCursor.getTextureTypes()[(int)TileType::DEFAULT]);
-	}	
-}
-
-World * MouseCursor::getLocation()
-{
-	return mWorld;
-}
-
-void MouseCursor::setLocation(World * _world)
-{
-	mWorld = _world;
+	TextureWorker::renderTextureRegion(mTextureCursor, mPosition, &mTextureCursor.getTextureTypes()[(int)TileType::DEFAULT]);
 }
 
 Texture& MouseCursor::getTextureCursor()

@@ -139,14 +139,14 @@
     <ClCompile Include="Entities\Player.cpp" />
     <ClCompile Include="Entities\World.cpp" />
     <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="Fireball.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Initializer.cpp" />
     <ClCompile Include="IsometricEngine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Coordinate2D.cpp" />
+    <ClCompile Include="System.cpp" />
+    <ClCompile Include="Systems\SystemGameLogic.cpp" />
     <ClCompile Include="Systems\SystemRender.cpp" />
-    <ClCompile Include="Systems\SystemUpdateInput.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureWorker.cpp" />
   </ItemGroup>
@@ -171,8 +171,8 @@
     <ClInclude Include="Settings.h" />
     <ClInclude Include="SupportMacroses.h" />
     <ClInclude Include="System.h" />
+    <ClInclude Include="Systems\SystemGameLogic.h" />
     <ClInclude Include="Systems\SystemRender.h" />
-    <ClInclude Include="Systems\SystemUpdateInput.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureWorker.h" />
   </ItemGroup>

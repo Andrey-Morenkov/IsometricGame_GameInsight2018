@@ -42,7 +42,3 @@ void initSDLstuff(SDL_Window *& _window, SDL_Renderer *& _renderer, string _wind
 	LOG_INFO("Successfully initialized image library for PNG");
 }
 
-void initGame()
-{
-
-}

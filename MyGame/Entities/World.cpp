@@ -1,8 +1,8 @@
 #include "World.h"
-#include "Settings.h"
-#include "Core.h"
-#include "SupportMacroses.h"
-#include "TextureWorker.h"
+#include "../Settings.h"
+#include "../Core.h"
+#include "../SupportMacroses.h"
+#include "../TextureWorker.h"
 
 World::World()
 {
@@ -41,36 +41,45 @@ Coordinate2D World::getStartingPoint()
 	return mPosition;
 }
 
-Coordinate2D World::getTileISOCoordinates(Coordinate2D _incomingISOCoordinates)
+Coordinate2D & World::getStartingPointLink()
+{
+	return mPosition;
+}
+
+Coordinate2D World::getTileISOCoordinatesFromISOCoords(Coordinate2D _incomingISOCoordinates)
+{
+	return getTileISOCoordinatesFromMapCoords(getTileMapCoordinatesFromISOCoords(_incomingISOCoordinates));	
+}
+
+Coordinate2D World::getTileISOCoordinatesFromMapCoords(Coordinate2D _incomintMapCoordinates)
 {
 	Coordinate2D res;
-	Coordinate2D tileMapCoord = getTileCoordinatesInWorld(_incomingISOCoordinates);
-	if ((tileMapCoord.getX() < 0) || (tileMapCoord.getY() < 0))
+	if ((_incomintMapCoordinates.getX() < 0) || (_incomintMapCoordinates.getY() < 0))
 	{
 		return Coordinate2D(-1, -1);
 	}
 	Coordinate2D floorBegin = getStartingPoint();
 	IsometricEngine::convertIsometricTo2D(floorBegin);
 
-	res.setX(floorBegin.getX() + tileMapCoord.getX() * ((double)mTextureTiles.getWidthEachTextureTypeInPixels() / 2.0));
-	res.setY(floorBegin.getY() + tileMapCoord.getY() * (mTextureTiles.getHeightEachTextureTypeInPixels()));
+	res.setX(floorBegin.getX() + _incomintMapCoordinates.getX() * ((double)mTextureTiles.getWidthEachTextureTypeInPixels() / 2.0));
+	res.setY(floorBegin.getY() + _incomintMapCoordinates.getY() * (mTextureTiles.getHeightEachTextureTypeInPixels()));
 	IsometricEngine::convert2DtoIsometric(res);
 	return res;
 }
 
-Coordinate2D World::getTileCoordinatesInWorld(Coordinate2D _incomingISOCoordinates)
+Coordinate2D World::getTileMapCoordinatesFromISOCoords(Coordinate2D _incomingISOCoordinates)
 {
 	double isoLeftLineCoeff = -0.5;
 	double isoRightLineCoeff = 0.5;
 	int lineStepX = TILE_SIZE_IN_PIXELS;
 	int lineStepY = TILE_SIZE_IN_PIXELS - 1;
 	//LOG_INFO("World begin (%d,%d)", mPosition.getX(), mPosition.getY());
-	LOG_INFO("Incoming coordinates (%d,%d)", _incomingISOCoordinates.getX(), _incomingISOCoordinates.getY());
+	//LOG_INFO("Incoming coordinates (%d,%d)", _incomingISOCoordinates.getX(), _incomingISOCoordinates.getY());
 
 	Coordinate2D pureIncomingCoordinates;
 	pureIncomingCoordinates.setX(_incomingISOCoordinates.getX() - (mPosition.getX() + (mTextureTiles.getWidthEachTextureTypeInPixels() / 2)));
 	pureIncomingCoordinates.setY(_incomingISOCoordinates.getY() - mPosition.getY());
-	LOG_INFO("Pure coordinates (%d,%d)", pureIncomingCoordinates.getX(), pureIncomingCoordinates.getY());
+	//LOG_INFO("Pure coordinates (%d,%d)", pureIncomingCoordinates.getX(), pureIncomingCoordinates.getY());
 
 	if (pureIncomingCoordinates.getY() < 0)
 	{

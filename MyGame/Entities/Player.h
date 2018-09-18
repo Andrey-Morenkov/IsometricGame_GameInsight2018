@@ -1,7 +1,6 @@
 #pragma once
 #include "../Entity.h"
 #include "../Texture.h"
-#include "../World.h"
 
 enum class PlayerDirection
 {
@@ -33,9 +32,11 @@ public:
 
 	void setDirection(PlayerDirection _direction);
 	void setPostition(Coordinate2D _newPos);
+	void setPositionFromTileIsoCoords(Coordinate2D _targetTileLeftTopCornerCoords);
 	void setSpeed(int _speed);
 	void setIsMoving(bool _ismoving);
 	Coordinate2D getPosition();
+	Coordinate2D getDownCenterPosition(); //use this for movement
 	PlayerDirection getDirection();
 	int getSpeed();
 	bool getIsMoving();

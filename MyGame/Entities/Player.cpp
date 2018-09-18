@@ -1,6 +1,6 @@
 #include "Player.h"
-#include "Settings.h"
-#include "TextureWorker.h"
+#include "../Settings.h"
+#include "../TextureWorker.h"
 
 Player::Player()
 {
@@ -39,6 +39,12 @@ void Player::setPostition(Coordinate2D _newPos)
 	mPosition = _newPos;
 }
 
+void Player::setPositionFromTileIsoCoords(Coordinate2D _targetTileLeftTopCornerCoords)
+{
+	mPosition.setX(_targetTileLeftTopCornerCoords.getX() + (TILE_TEXTURE_WIDTH_IN_PIXELS / 2) - (PLAYER_TEXTURE_WIDTH_IN_PIXELS / 2));
+	mPosition.setY(_targetTileLeftTopCornerCoords.getY() + (TILE_TEXTURE_HEIGHT_IN_PIXELS / 2) - PLAYER_TEXTURE_HEIGHT_IN_PIXELS);
+}
+
 void Player::setSpeed(int _speed)
 {
 	mSpeed = _speed;
@@ -52,6 +58,11 @@ void Player::setIsMoving(bool _ismoving)
 Coordinate2D Player::getPosition()
 {
 	return mPosition;
+}
+
+Coordinate2D Player::getDownCenterPosition()
+{
+	return Coordinate2D(mPosition.getX() + (PLAYER_TEXTURE_WIDTH_IN_PIXELS / 2), mPosition.getY() + PLAYER_TEXTURE_HEIGHT_IN_PIXELS);
 }
 
 PlayerDirection Player::getDirection()

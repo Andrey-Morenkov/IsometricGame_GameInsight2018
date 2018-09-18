@@ -12,4 +12,5 @@ public:
 	virtual ~System() {};
 
 	void run() override = 0;
+	void bindGame(Game* _game);
 };

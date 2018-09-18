@@ -5,5 +5,7 @@ class NPC :	public Entity
 public:
 	NPC();
 	virtual ~NPC();
+
+	void render() override;
 };
 

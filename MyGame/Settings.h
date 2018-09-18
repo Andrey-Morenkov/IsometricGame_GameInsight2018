@@ -11,6 +11,9 @@
 
 #define MAX_FPS 30
 #define TICKRATE 100
+#define UPDATE_INPUT_RATE 50
+#define TICKS_IN_SECOND 1000
+#define WORLD_SCROLL_SPEED 20
 // ---------- /Main Settings ----------
 
 // ---------- Texture Files Settings ----------

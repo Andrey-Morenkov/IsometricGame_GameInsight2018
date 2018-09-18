@@ -10,3 +10,7 @@ NPC::NPC()
 NPC::~NPC()
 {
 }
+
+void NPC::render()
+{
+}

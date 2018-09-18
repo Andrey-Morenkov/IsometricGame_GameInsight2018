@@ -57,9 +57,6 @@
     <ClCompile Include="Entity.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Fireball.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="Entities\Barrier.cpp">
       <Filter>Исходные файлы\Entities</Filter>
     </ClCompile>
@@ -84,8 +81,11 @@
     <ClCompile Include="Systems\SystemRender.cpp">
       <Filter>Исходные файлы\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Systems\SystemUpdateInput.cpp">
+    <ClCompile Include="Systems\SystemGameLogic.cpp">
       <Filter>Исходные файлы\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="System.cpp">
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,7 +158,7 @@
     <ClInclude Include="Systems\SystemRender.h">
       <Filter>Файлы заголовков\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="Systems\SystemUpdateInput.h">
+    <ClInclude Include="Systems\SystemGameLogic.h">
       <Filter>Файлы заголовков\Systems</Filter>
     </ClInclude>
   </ItemGroup>

@@ -85,9 +85,26 @@ void SystemGameLogic::doWholeGameStep()
 	doFireballsStep();
 }
 
+void SystemGameLogic::checkPlayerTile()
+{
+	// сверяем текущую позицию игрока и финишную клетку. если это так то выход из игры с Success
+}
+
+void  SystemGameLogic::checkPlayerNPCcollision()
+{
+	// сравниваем позицию игрока с каждым NPC. Если в одной и той же клетке находятся то выход из игры с DEAD
+}
+	
+void  SystemGameLogic::checkPlayerFireballCollision()
+{
+	// сравниваем позицию игрока с каждым Fireball. Если в одной и той же клетке находятся то выход из игры с DEAD
+}	
+
 void SystemGameLogic::detectColisions()
 {
-
+	checkPlayerNPCcollision();
+	checkPlayerFireballCollision();
+	checkPlayerTile();
 }
 
 void SystemGameLogic::doPlayerStep()

@@ -100,14 +100,13 @@ void SystemGameLogic::doPlayerStep()
 	if (distance <= mGame->mPlayer.first->getSpeed())
 	{
 		updateDirectionAndMove(diff, distance);
-		mGame->mPlayer.second = mGame->mWorld->getTileMapCoordinatesFromISOCoords(mGame->mPlayer.first->getTileISOCoordFromSelfPosition());
-		mGame->mPlayer.first->getPath().doStep();
 	}
 	else
 	{
 		updateDirectionAndMove(diff, mGame->mPlayer.first->getSpeed());
 	}
-
+	mGame->mPlayer.second = mGame->mWorld->getTileMapCoordinatesFromISOCoords(mGame->mPlayer.first->getTileISOCoordFromSelfPosition());
+	mGame->mPlayer.first->getPath().doStep();
 }
 
 void SystemGameLogic::doNPCsStep()
@@ -242,7 +241,7 @@ void SystemGameLogic::updateMouseEventAndQuitEvent()
 				{
 					case SDL_BUTTON_LEFT:
 					{
-						LOG_INFO("À Ã pressed1");
+						LOG_INFO("√ã√ä√å pressed1");
 						setPlayerDestination();
 						break;
 					}

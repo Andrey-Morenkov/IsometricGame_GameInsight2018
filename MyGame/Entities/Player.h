@@ -1,42 +1,23 @@
 #pragma once
-#include "../Entity.h"
+#include "../MoveableEntity.h"
 #include "../Texture.h"
 
-enum class PlayerDirection
-{
-	UP_LEFT = 0,
-	UP,
-	UP_RIGHT,
-	RIGHT,
-	RIGHT_DOWN,
-	DOWN,
-	DOWN_LEFT,
-	LEFT
-};
-
-class Player : public Entity
+class Player : public MoveableEntity
 {
 private:
 
 	Texture mPlayerTexture;
-	PlayerDirection mDirection;
-	int mSpeed; //pixels per tick
-
+	
 public:
 	Player();
 	Player(Coordinate2D _startCoord);
 	virtual ~Player();
 
-	void render() override;
-
-	void setDirection(PlayerDirection _direction);
-	void setPostition(Coordinate2D _newPos);
 	void setPositionFromTileIsoCoords(Coordinate2D _targetTileLeftTopCornerCoords);
-	void setSpeed(int _speed);
-	Coordinate2D getPosition();
-	Coordinate2D getDownCenterPosition(); //use this for movement
-	PlayerDirection getDirection();
-	int getSpeed();
+	Coordinate2D getTileISOCoordFromSelfPosition();
+	Coordinate2D getProjectionToTileISOcoord();
+
+	void render() override;
 };
 
 

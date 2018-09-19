@@ -16,20 +16,24 @@ private:
 	unsigned int mLastUpdatedTick;
 	SDL_Event    mCurrentEvent;
 	const Uint8* mKeystate;
-	AStar::CoordinateList mPlayerPath;
-	int mPlayerCurrentStep;
 
 	void updateCursorPosition();
 	void updateMouseEventAndQuitEvent();
 	void updateKeyboardEvent();
 	void updateInput();
-	void doPlayerStep();
 	bool needRun();
 	bool needUpdateInput();
 
 	void addOrRemoveBarrier();
 	void setPlayerDestination();
 
+	void doWholeGameStep();
+	void detectColisions();
+	void doPlayerStep();
+	void doNPCsStep();
+	void doFireballsStep();
+
+	void updateDirectionAndMove(Coordinate2D _difference, int _dist);
 public:
 	SystemGameLogic();
 	virtual ~SystemGameLogic();

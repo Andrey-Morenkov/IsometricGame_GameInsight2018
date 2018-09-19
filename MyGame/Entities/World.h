@@ -33,7 +33,7 @@ public:
 	Coordinate2D getTileISOCoordinatesFromISOCoords(Coordinate2D _incomingISOCoordinates); // returns upper left corner coord of local tile
 	Coordinate2D getTileISOCoordinatesFromMapCoords(Coordinate2D _incomintMapCoordinates); // returns upper left corner coord of local tile
 	Coordinate2D getTileMapCoordinatesFromISOCoords(Coordinate2D _incomingISOCoordinates); // returns tile number ,(0,0) for example
-	Coordinate2D getTileISOProjectionFromISOCoords(Coordinate2D _incomingISOCoordinates); // returns center of tile from left upper corner
+	Coordinate2D getTileISOProjectionFromSelfISOCoords(Coordinate2D _incomingISOCoordinates); // returns center of tile from left upper corner
 };
 
 enum class TileType

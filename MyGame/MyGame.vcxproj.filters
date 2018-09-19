@@ -93,6 +93,12 @@
     <ClCompile Include="System.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="PathWay.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveableEntity.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
     <ClCompile Include="ThirdPartyLibs\daancode_a-star\source\AStar.cpp">
       <Filter>Исходные файлы\ThirdPartyLibs</Filter>
     </ClCompile>
@@ -169,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="Systems\SystemGameLogic.h">
       <Filter>Файлы заголовков\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveableEntity.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="PathWay.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="ThirdPartyLibs\daancode_a-star\source\AStar.hpp">
       <Filter>Файлы заголовков\ThirdPartyLibs</Filter>

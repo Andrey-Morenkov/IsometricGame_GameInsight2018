@@ -144,6 +144,8 @@
     <ClCompile Include="IsometricEngine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Coordinate2D.cpp" />
+    <ClCompile Include="MoveableEntity.cpp" />
+    <ClCompile Include="PathWay.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="Systems\SystemGameLogic.cpp" />
     <ClCompile Include="Systems\SystemRender.cpp" />
@@ -164,8 +166,10 @@
     <ClInclude Include="Coordinate2D.h" />
     <ClInclude Include="Fireball.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="MoveableEntity.h" />
     <ClInclude Include="Interfaces\Renderable.h" />
     <ClInclude Include="Interfaces\Runnable.h" />
+    <ClInclude Include="PathWay.h" />
     <ClInclude Include="ResultCode.h" />
     <ClInclude Include="Initializer.h" />
     <ClInclude Include="IsometricEngine.h" />

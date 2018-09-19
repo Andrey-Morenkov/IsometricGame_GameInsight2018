@@ -36,19 +36,30 @@ void Coordinate2D::setY(int _y)
 	mY = _y;
 }
 
-/*Vec2i Coordinate2D::makeVec()
+bool Coordinate2D::operator==(const Coordinate2D & coordinates_)
 {
-	Vec2i res;
-	res.x = mX;
-	res.y = mY;
-	return res;
-}*/
+	return ((mX == coordinates_.mX)&&(mY == coordinates_.mY));
+}
+
+bool Coordinate2D::operator!=(const Coordinate2D & coordinates_)
+{
+	return !((mX == coordinates_.mX) && (mY == coordinates_.mY));
+}
+
+Coordinate2D Coordinate2D::operator-(const Coordinate2D & _coord)
+{
+	return Coordinate2D(mX - _coord.mX, mY - _coord.mY);
+}
 
 const bool operator==(const Coordinate2D & coord1, const Coordinate2D & coord2)
 {
-	if ((coord1.mX == coord2.mX) && (coord1.mY == coord2.mY))
-	{
-		return true;
-	}		
-	return false;
+	return((coord1.mX == coord2.mX) && (coord1.mY == coord2.mY));
+}
+
+const Coordinate2D operator-(const Coordinate2D & _coord)
+{
+	Coordinate2D res;
+	res.mX -= _coord.mX;
+	res.mY -= _coord.mY;
+	return res;
 }

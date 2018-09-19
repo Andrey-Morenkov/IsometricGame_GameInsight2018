@@ -94,9 +94,9 @@ Coordinate2D World::getTileMapCoordinatesFromISOCoords(Coordinate2D _incomingISO
 	return Coordinate2D(row, column);
 }
 
-Coordinate2D World::getTileISOProjectionFromISOCoords(Coordinate2D _incomingISOCoordinates)
+Coordinate2D World::getTileISOProjectionFromSelfISOCoords(Coordinate2D _incomingISOCoordinates)
 {
-	return Coordinate2D(_incomingISOCoordinates.getX() + mTextureTiles.getWidthEachTextureTypeInPixels(), _incomingISOCoordinates.getY() + mTextureTiles.getHeightEachTextureTypeInPixels());
+	return Coordinate2D(_incomingISOCoordinates.getX() + mTextureTiles.getWidthEachTextureTypeInPixels()/2, _incomingISOCoordinates.getY() + mTextureTiles.getHeightEachTextureTypeInPixels()/2);
 }
 
 void World::renderFloor()

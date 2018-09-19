@@ -9,7 +9,7 @@
 
 //#define FLAG_WITHOUT_LOGS
 
-#define TICKRATE 100
+#define TICKRATE 2
 #define UPDATE_INPUT_RATE 50
 #define TICKS_IN_SECOND 1000
 // ---------- /Main Settings ----------

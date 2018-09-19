@@ -6,25 +6,20 @@
 #ifndef __ASTAR_HPP_8F637DB91972F6C878D41D63F7E7214F__
 #define __ASTAR_HPP_8F637DB91972F6C878D41D63F7E7214F__
 
+#include "../../../Coordinate2D.h"
 #include <vector>
 #include <functional>
 #include <set>
-#include "../../../Coordinate2D.h"
-
-
-class Vec2i
-{
-public:
-	int x, y;
-
-	bool operator == (const Vec2i& coordinates_);
-	Vec2i();
-	Vec2i(int _x, int _y);
-	void operator = (const Vec2i &v1);
-};
 
 namespace AStar
 {
+    struct Vec2i
+    {
+        int x, y;
+
+        bool operator == (const Vec2i& coordinates_);
+	};
+
     using uint = unsigned int;
     using HeuristicFunction = std::function<uint(Vec2i, Vec2i)>;
     using CoordinateList = std::vector<Vec2i>;

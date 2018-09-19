@@ -10,7 +10,7 @@
 #include "./Entities/Barrier.h"
 #include "./Entities/Cannon.h"
 #include "ResultCode.h"
-#include "ThirdPartyLibs/daancode_a-star/source/AStar.hpp"
+#include"ThirdPartyLibs/daancode_a-star/source/AStar.hpp"
 
 enum class ExitReason
 {

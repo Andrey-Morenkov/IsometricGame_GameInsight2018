@@ -3,28 +3,12 @@
 
 using namespace std::placeholders;
 
-bool Vec2i::operator == (const Vec2i& coordinates_)
+bool AStar::Vec2i::operator == (const Vec2i& coordinates_)
 {
     return (x == coordinates_.x && y == coordinates_.y);
 }
 
-Vec2i::Vec2i()
-{
-}
-
-Vec2i::Vec2i(int _x, int _y)
-{
-	x = _x;
-	y = _y;
-}
-
-void Vec2i::operator=(const Vec2i & v1)
-{
-	this->x = v1.x;
-	this->y = v1.y;
-}
-
-Vec2i operator + (const Vec2i& left_, const Vec2i& right_)
+AStar::Vec2i operator + (const AStar::Vec2i& left_, const AStar::Vec2i& right_)
 {
     return{ left_.x + right_.x, left_.y + right_.y };
 }
@@ -129,15 +113,24 @@ AStar::CoordinateList AStar::Generator::findPath(Vec2i source_, Vec2i target_)
     }
 
     CoordinateList path;
-    while (current != nullptr) {
+	int cnt = 0;
+
+    while (current != nullptr) 
+	{
         path.push_back(current->coordinates);
+		cnt++;
         current = current->parent;
     }
+	CoordinateList frontList;
+	for (int i = cnt-2; i >= 0; i--)
+	{
+		frontList.push_back(path[i]);
+	}
 
     releaseNodes(openSet);
     releaseNodes(closedSet);
 
-    return path;
+    return frontList;
 }
 
 AStar::Node* AStar::Generator::findNodeOnList(NodeSet& nodes_, Vec2i coordinates_)
@@ -168,7 +161,7 @@ bool AStar::Generator::detectCollision(Vec2i coordinates_)
     return false;
 }
 
-Vec2i AStar::Heuristic::getDelta(Vec2i source_, Vec2i target_)
+AStar::Vec2i AStar::Heuristic::getDelta(Vec2i source_, Vec2i target_)
 {
     return{ abs(source_.x - target_.x),  abs(source_.y - target_.y) };
 }

@@ -1,15 +1,4 @@
-﻿  MouseCursor.cpp
-  World.cpp
-c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(64): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(91): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
-c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(92): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
-c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(110): warning C4018: <: несоответствие типов со знаком и без знака
-c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(112): warning C4018: <: несоответствие типов со знаком и без знака
-c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(114): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(137): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(138): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
-c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(145): warning C4018: <: несоответствие типов со знаком и без знака
-c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(153): warning C4018: <: несоответствие типов со знаком и без знака
+﻿  Player.cpp
   Game.cpp
 c:\sdlgame\isometricgame_gameinsight2018\mygame\game.cpp(18): warning C4018: <: несоответствие типов со знаком и без знака
 c:\sdlgame\isometricgame_gameinsight2018\mygame\game.cpp(43): warning C4018: <: несоответствие типов со знаком и без знака
@@ -21,6 +10,15 @@ c:\sdlgame\isometricgame_gameinsight2018\mygame\initializer.cpp(12): warning C42
   SystemGameLogic.cpp
 c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(27): warning C4018: >=: несоответствие типов со знаком и без знака
 c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(33): warning C4018: >=: несоответствие типов со знаком и без знака
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(99): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(129): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(130): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(142): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(143): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(171): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(172): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(184): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(185): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
   SystemRender.cpp
 c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemrender.cpp(36): warning C4018: <: несоответствие типов со знаком и без знака
 c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemrender.cpp(46): warning C4018: <: несоответствие типов со знаком и без знака

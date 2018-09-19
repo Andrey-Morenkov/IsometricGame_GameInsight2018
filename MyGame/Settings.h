@@ -9,15 +9,15 @@
 
 //#define FLAG_WITHOUT_LOGS
 
-#define TICKRATE 2
+#define TICKRATE 120
 #define UPDATE_INPUT_RATE 50
-#define TICKS_IN_SECOND 1000
+#define TICKS_IN_SECOND 1000.0
 // ---------- /Main Settings ----------
 
 // ---------- Game Settings ----------
 #define MAX_FPS 30
 #define WORLD_SCROLL_SPEED 20
-#define ALLOW_DIAGONAL_MOVEMENT false
+#define ALLOW_DIAGONAL_MOVEMENT true
 // ---------- /Game Settings ----------
 
 // ---------- Texture Files Settings ----------

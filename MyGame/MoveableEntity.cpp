@@ -10,9 +10,9 @@ void MoveableEntity::setPostition(Coordinate2D _newPos)
 	mPosition = _newPos;
 }
 
-void MoveableEntity::setSpeed(int _speed)
+void MoveableEntity::setTimeForStepInSec(double _sec)
 {
-	mSpeed = _speed;
+	mTimeForStepInSec = _sec;
 }
 
 Coordinate2D MoveableEntity::getPosition()
@@ -25,9 +25,9 @@ EntityDirection MoveableEntity::getDirection()
 	return mDirection;
 }
 
-int MoveableEntity::getSpeed()
+double MoveableEntity::getTimeForStepInSec()
 {
-	return mSpeed;
+	return mTimeForStepInSec;
 }
 
 void MoveableEntity::setNewPath(AStar::CoordinateList _newPath)
@@ -36,7 +36,7 @@ void MoveableEntity::setNewPath(AStar::CoordinateList _newPath)
 	mPath.setRoute(_newPath);
 }
 
-PathWay MoveableEntity::getPath()
+PathWay& MoveableEntity::getPath()
 {
 	return mPath;
 }

@@ -18,22 +18,23 @@ class MoveableEntity : public Entity
 {
 protected:
 	EntityDirection mDirection;
-	int             mSpeed;					//pixels per tick
+	double          mTimeForStepInSec;
 	PathWay         mPath;
 
 public:
-	MoveableEntity() {};
+	MoveableEntity() { mLastUpdatedTick = 0; };
 	virtual ~MoveableEntity() {};
 
 	void render() override = 0;
 
 	void setDirection(EntityDirection _direction);
 	void setPostition(Coordinate2D _newPos);
-	void setSpeed(int _speed);
+	void setTimeForStepInSec(double _sec);
 	Coordinate2D getPosition();
 	EntityDirection getDirection();
-	int getSpeed();
+	double getTimeForStepInSec();
 	void setNewPath(AStar::CoordinateList _newPath);
 
-	PathWay getPath();
+	PathWay& getPath();
+	unsigned int mLastUpdatedTick;
 };

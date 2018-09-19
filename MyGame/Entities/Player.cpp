@@ -10,7 +10,7 @@ Player::Player()
 	mPlayerTexture.setWidthEachTextureTypeInPixels(PLAYER_TEXTURE_WIDTH_IN_PIXELS);
 	mPlayerTexture.setHeightEachTextureTypeInPixels(PLAYER_TEXTURE_HEIGHT_IN_PIXELS);
 	mPlayerTexture.loadFromPath(PLAYER_TEXTURE_PATH);
-	mSpeed = TILE_SIZE_IN_PIXELS;
+	mTimeForStepInSec = 0.5;
 	mPath.setCyclicMode(false);
 }
 

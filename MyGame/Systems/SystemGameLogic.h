@@ -14,6 +14,8 @@ private:
 	unsigned int mCurrentTick;
 	unsigned int mLastTick;
 	unsigned int mLastUpdatedTick;
+	unsigned int mCurrentStepTick;
+	unsigned int mLastStepTick;
 	SDL_Event    mCurrentEvent;
 	const Uint8* mKeystate;
 
@@ -36,7 +38,7 @@ private:
 	void doNPCsStep();
 	void doFireballsStep();
 
-	void updateDirectionAndMove(Coordinate2D _difference, int _dist);
+	void updateDirection(Coordinate2D _difference);
 public:
 	SystemGameLogic();
 	virtual ~SystemGameLogic();

@@ -14,6 +14,7 @@ SystemGameLogic::SystemGameLogic()
 	mCurrentUpdateTick = mCurrentTick;
 	mLastTick = 0;
 	mLastUpdatedTick = 0;
+	mLastStepTick = 0;
 	mUpdateInputRate = UPDATE_INPUT_RATE;
 }
 
@@ -72,7 +73,10 @@ void SystemGameLogic::setPlayerDestination()
 	Coordinate2D playerMapCoord = mGame->mPlayer.second;
 	Coordinate2D clickedTileInMapCoord = mGame->mWorld->getTileMapCoordinatesFromISOCoords(Coordinate2D(x, y));
 
-	mGame->mPlayer.first->setNewPath(mGame->mWorldMap.findPath({ playerMapCoord.getX(), playerMapCoord.getY() }, { clickedTileInMapCoord.getX(), clickedTileInMapCoord.getY() }));
+	if (playerMapCoord != clickedTileInMapCoord)
+	{
+		mGame->mPlayer.first->setNewPath(mGame->mWorldMap.findPath({ playerMapCoord.getX(), playerMapCoord.getY() }, { clickedTileInMapCoord.getX(), clickedTileInMapCoord.getY() }));
+	}
 }
 
 void SystemGameLogic::doWholeGameStep()
@@ -80,25 +84,10 @@ void SystemGameLogic::doWholeGameStep()
 	if (!mGame->mPlayer.first->getPath().isFinished())
 	{
 		doPlayerStep();
-	}	
+	}
 	doNPCsStep();
 	doFireballsStep();
 }
-
-void SystemGameLogic::checkPlayerTile()
-{
-	// сверяем текущую позицию игрока и финишную клетку. если это так то выход из игры с Success
-}
-
-void  SystemGameLogic::checkPlayerNPCcollision()
-{
-	// сравниваем позицию игрока с каждым NPC. Если в одной и той же клетке находятся то выход из игры с DEAD
-}
-	
-void  SystemGameLogic::checkPlayerFireballCollision()
-{
-	// сравниваем позицию игрока с каждым Fireball. Если в одной и той же клетке находятся то выход из игры с DEAD
-}	
 
 void SystemGameLogic::detectColisions()
 {
@@ -107,66 +96,86 @@ void SystemGameLogic::detectColisions()
 	checkPlayerTile();
 }
 
+void SystemGameLogic::checkPlayerTile()
+{
+	if (mGame->mPlayer.second == MAP_FINISH_POINT)
+	{
+		mGame->setGameOver(true);
+		mGame->setExitReason(ExitReason::FINISHED);
+	}
+}
+
+void SystemGameLogic::checkPlayerNPCcollision()
+{
+}
+
+void SystemGameLogic::checkPlayerFireballCollision()
+{
+}
+
 void SystemGameLogic::doPlayerStep()
 {
-	Coordinate2D selfProjection = mGame->mPlayer.first->getProjectionToTileISOcoord();
-	Coordinate2D subtargetProjection = mGame->mWorld->getTileISOProjectionFromSelfISOCoords(mGame->mWorld->getTileISOCoordinatesFromMapCoords(mGame->mPlayer.first->getPath().getCurrentSubTargetMapCoordinate()));
+	unsigned int currTick = SDL_GetTicks();
+	if (((double)(currTick - mGame->mPlayer.first->mLastUpdatedTick) / TICKS_IN_SECOND) < mGame->mPlayer.first->getTimeForStepInSec())
+	{
+		return;
+	}
+	mGame->mPlayer.first->mLastUpdatedTick = currTick;
 
-	Coordinate2D diff = selfProjection - subtargetProjection;
-	int distance = sqrt(pow((selfProjection.getX() - subtargetProjection.getX()), 2) + (pow((selfProjection.getY() - subtargetProjection.getY()), 2)));
-	if (distance <= mGame->mPlayer.first->getSpeed())
-	{
-		updateDirectionAndMove(diff, distance);
-	}
-	else
-	{
-		updateDirectionAndMove(diff, mGame->mPlayer.first->getSpeed());
-	}
-	mGame->mPlayer.second = mGame->mWorld->getTileMapCoordinatesFromISOCoords(mGame->mPlayer.first->getTileISOCoordFromSelfPosition());
+	Coordinate2D selfMapCoord = mGame->mWorld->getTileMapCoordinatesFromISOCoords(mGame->mPlayer.first->getProjectionToTileISOcoord());
+	Coordinate2D subtargetMapCoord = mGame->mPlayer.first->getPath().getCurrentSubTargetMapCoordinate();
+
+	Coordinate2D diff = selfMapCoord - subtargetMapCoord;
+	//int distance = sqrt(pow((selfMapCoord.getX() - subtargetMapCoord.getX()), 2) + (pow((selfMapCoord.getY() - subtargetMapCoord.getY()), 2)));
+	
+	updateDirection(diff);
+
+	mGame->mPlayer.first->setPositionFromTileIsoCoords(mGame->mWorld->getTileISOCoordinatesFromMapCoords(subtargetMapCoord));
+	mGame->mPlayer.second = subtargetMapCoord;
 	mGame->mPlayer.first->getPath().doStep();
 }
 
 void SystemGameLogic::doNPCsStep()
 {
+	//for (int i = 0; i < mGame->mNPCs.size(); i++)
+	//{
+	//	if (((double)(mCurrentStepTick - mLastStepTick) / TICKS_IN_SECOND) < mGame->mNPCs[i].first->getTimeForStepInSec())
+   //	{
+//			continue;
+//		}
+
+		
+//	}
+	
+
 }
 
 void SystemGameLogic::doFireballsStep()
 {
 }
 
-void SystemGameLogic::updateDirectionAndMove(Coordinate2D _difference, int _dist)
+void SystemGameLogic::updateDirection(Coordinate2D _difference)
 {
-	Coordinate2D newPos = mGame->mPlayer.first->getPosition();
 	if (_difference.getX() > 0)
 	{
 		if (_difference.getY() < 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::DOWN_LEFT);
-			newPos.setX(newPos.getX() - ((double)_dist * sqrt(5)));
-			newPos.setY(newPos.getY() + (((double)2 * sqrt(5)) * _dist));
-			mGame->mPlayer.first->setPostition(newPos);
+			mGame->mPlayer.first->setDirection(EntityDirection::LEFT);
 		}
 		if (_difference.getY() == 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::LEFT);
-			newPos.setX(newPos.getX() - _dist);
-			mGame->mPlayer.first->setPostition(newPos);
+			mGame->mPlayer.first->setDirection(EntityDirection::UP_LEFT);
 		}
 		if (_difference.getY() > 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::UP_LEFT);
-			newPos.setX(newPos.getX() - ((double)_dist * sqrt(5)));
-			newPos.setY(newPos.getY() - (((double)2 * sqrt(5)) * _dist));
-			mGame->mPlayer.first->setPostition(newPos);
+			mGame->mPlayer.first->setDirection(EntityDirection::UP);
 		}
 	}
 	if (_difference.getX() == 0)
 	{
 		if (_difference.getY() < 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::DOWN);
-			newPos.setY(newPos.getY() + _dist);
-			mGame->mPlayer.first->setPostition(newPos);
+			mGame->mPlayer.first->setDirection(EntityDirection::DOWN_LEFT);
 		}
 		if (_difference.getY() == 0)
 		{
@@ -174,32 +183,22 @@ void SystemGameLogic::updateDirectionAndMove(Coordinate2D _difference, int _dist
 		}
 		if (_difference.getY() > 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::UP);
-			newPos.setY(newPos.getY() - _dist);
-			mGame->mPlayer.first->setPostition(newPos);
+			mGame->mPlayer.first->setDirection(EntityDirection::UP_RIGHT);
 		}
 	}
 	if (_difference.getX() < 0)
 	{
 		if (_difference.getY() < 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::RIGHT_DOWN);
-			newPos.setX(newPos.getX() + ((double)_dist * sqrt(5)));
-			newPos.setY(newPos.getY() + (((double)2 * sqrt(5)) * _dist));
-			mGame->mPlayer.first->setPostition(newPos);
+			mGame->mPlayer.first->setDirection(EntityDirection::DOWN);
 		}
 		if (_difference.getY() == 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::RIGHT);
-			newPos.setX(newPos.getX() + _dist);
-			mGame->mPlayer.first->setPostition(newPos);
+			mGame->mPlayer.first->setDirection(EntityDirection::RIGHT_DOWN);
 		}
 		if (_difference.getY() > 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::UP_RIGHT);
-			newPos.setX(newPos.getX() + ((double)_dist * sqrt(5)));
-			newPos.setY(newPos.getY() - (((double)2 * sqrt(5)) * _dist));
-			mGame->mPlayer.first->setPostition(newPos);
+			mGame->mPlayer.first->setDirection(EntityDirection::RIGHT);
 		}
 	}
 }
@@ -258,7 +257,7 @@ void SystemGameLogic::updateMouseEventAndQuitEvent()
 				{
 					case SDL_BUTTON_LEFT:
 					{
-						LOG_INFO("ËÊÌ pressed1");
+						LOG_INFO("ЛКМ pressed1");
 						setPlayerDestination();
 						break;
 					}

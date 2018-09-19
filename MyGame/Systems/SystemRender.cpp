@@ -24,7 +24,7 @@ SystemRender::~SystemRender()
 
 void SystemRender::run()
 {
-	if (!needRender())
+	if (!needRender() && !mGame->isGameOver())
 	{
 		return;
 	}

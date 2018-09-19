@@ -5,6 +5,7 @@
 void Game::setPlayerSpawnpoint(Coordinate2D _spawnpointMapCoods)
 {
 	mPlayer.second = _spawnpointMapCoods;
+	mPlayer.first->setPositionFromTileIsoCoords(mWorld->getTileISOCoordinatesFromMapCoords(mPlayer.second));
 }
 
 void Game::changeStartingPoint(Coordinate2D _newStartingPoint)

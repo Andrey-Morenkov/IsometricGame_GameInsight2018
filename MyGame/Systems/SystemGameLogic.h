@@ -29,6 +29,9 @@ private:
 
 	void doWholeGameStep();
 	void detectColisions();
+	void checkPlayerTile();
+	void checkPlayerNPCcollision();
+	void checkPlayerFireballCollision();
 	void doPlayerStep();
 	void doNPCsStep();
 	void doFireballsStep();

@@ -25,23 +25,24 @@ SystemGameLogic::~SystemGameLogic()
 bool SystemGameLogic::needRun()
 {
 	mCurrentTick = SDL_GetTicks();
-	return (((mCurrentTick - mLastTick) >= (TICKS_IN_SECOND / mTickrate)) && !mGame->isGameOver());
+	return (((mCurrentTick - mLastTick) >= (TICKS_PER_SECOND / mTickrate)) && !mGame->isGameOver());
 }
 
 bool SystemGameLogic::needUpdateInput()
 { 
 	mCurrentUpdateTick = SDL_GetTicks();
-	return (((mCurrentUpdateTick - mLastUpdatedTick) >= (TICKS_IN_SECOND / mUpdateInputRate)) && !mGame->isGameOver());
+	return (((mCurrentUpdateTick - mLastUpdatedTick) >= (TICKS_PER_SECOND / mUpdateInputRate)) && !mGame->isGameOver());
 }
 
 void SystemGameLogic::addOrRemoveBarrier()
 {
-	int x;
-	int y;
-	SDL_GetMouseState(&x, &y);
+	if (!mGame->mMouseCursor->getIsCorrect())
+	{
+		return;
+	}
 
-	Coordinate2D clickedTileInMapCoord = mGame->mWorld->getTileMapCoordinatesFromISOCoords(Coordinate2D(x, y));
-	Coordinate2D clickedTileInIsoCoord = mGame->mWorld->getTileISOCoordinatesFromISOCoords(Coordinate2D(x, y));
+	Coordinate2D clickedTileInMapCoord = mGame->mWorld->getTileMapCoordinatesFromISOCoords(mGame->mMouseCursor->getPosition());
+	Coordinate2D clickedTileInIsoCoord = mGame->mWorld->getTileISOCoordinatesFromISOCoords(mGame->mMouseCursor->getPosition());
 	int pos = mGame->getBarrierPositionByMapCoord(clickedTileInMapCoord);
 	
 	if (pos != (int)ResultCode::NOT_EXIST)
@@ -55,23 +56,27 @@ void SystemGameLogic::addOrRemoveBarrier()
 		newBarrier->setPosition(clickedTileInIsoCoord);
 		auto newEntry = make_pair(newBarrier, clickedTileInMapCoord);
 		mGame->mBarriers.push_back(newEntry);
-		mGame->mWorldMap.addCollision({ clickedTileInMapCoord.getX(), clickedTileInMapCoord.getY() });
+		mGame->mWorldMap.addCollision({ clickedTileInMapCoord.getX(), clickedTileInMapCoord.getY() });		
 	}
+
+	refreshPath(mGame->mPlayer.first, mGame->mPlayer.second);
 }
 
-void SystemGameLogic::setPlayerDestination()
+void SystemGameLogic::setPlayerDestinationToClickedTile()
 {
+	if (!mGame->mMouseCursor->getIsCorrect())
+	{
+		return;
+	}
+
 	mGame->mPlayer.first->getPath().clear();
 
-	//correct position to tile center of tile
-	//mGame->mPlayer.first->setPositionFromTileIsoCoords(mGame->mWorld->getTileISOCoordinatesFromISOCoords(mGame->mPlayer.first->getPosition()));
+	//correcting position to tile center of tile
 	mGame->mPlayer.second = mGame->mWorld->getTileMapCoordinatesFromISOCoords(mGame->mPlayer.first->getProjectionToTileISOcoord());
 
-	int x;
-	int y;
-	SDL_GetMouseState(&x, &y);
+	
 	Coordinate2D playerMapCoord = mGame->mPlayer.second;
-	Coordinate2D clickedTileInMapCoord = mGame->mWorld->getTileMapCoordinatesFromISOCoords(Coordinate2D(x, y));
+	Coordinate2D clickedTileInMapCoord = mGame->mWorld->getTileMapCoordinatesFromISOCoords(mGame->mMouseCursor->getPosition());
 
 	if (playerMapCoord != clickedTileInMapCoord)
 	{
@@ -81,12 +86,10 @@ void SystemGameLogic::setPlayerDestination()
 
 void SystemGameLogic::doWholeGameStep()
 {
-	if (!mGame->mPlayer.first->getPath().isFinished())
-	{
-		doPlayerStep();
-	}
+	doPlayerStep();
 	doNPCsStep();
 	doFireballsStep();
+	doCannonsStep();
 }
 
 void SystemGameLogic::detectColisions()
@@ -115,15 +118,13 @@ void SystemGameLogic::checkPlayerFireballCollision()
 
 void SystemGameLogic::doPlayerStep()
 {
-	unsigned int currTick = SDL_GetTicks();
-	if (((double)(currTick - mGame->mPlayer.first->mLastUpdatedTick) / TICKS_IN_SECOND) < mGame->mPlayer.first->getTimeForStepInSec())
+	if (!mGame->mPlayer.first->isNeedToMove())
 	{
 		return;
 	}
-	mGame->mPlayer.first->mLastUpdatedTick = currTick;
 
-	Coordinate2D selfMapCoord = mGame->mWorld->getTileMapCoordinatesFromISOCoords(mGame->mPlayer.first->getProjectionToTileISOcoord());
-	Coordinate2D subtargetMapCoord = mGame->mPlayer.first->getPath().getCurrentSubTargetMapCoordinate();
+	Coordinate2D selfMapCoord      = mGame->mWorld->getTileMapCoordinatesFromISOCoords(mGame->mPlayer.first->getProjectionToTileISOcoord());
+	Coordinate2D subtargetMapCoord = mGame->mPlayer.first->getPath().getCurrentSubDestinationMapCoordinate();
 
 	Coordinate2D diff = selfMapCoord - subtargetMapCoord;
 	//int distance = sqrt(pow((selfMapCoord.getX() - subtargetMapCoord.getX()), 2) + (pow((selfMapCoord.getY() - subtargetMapCoord.getY()), 2)));
@@ -137,21 +138,99 @@ void SystemGameLogic::doPlayerStep()
 
 void SystemGameLogic::doNPCsStep()
 {
-	//for (int i = 0; i < mGame->mNPCs.size(); i++)
-	//{
-	//	if (((double)(mCurrentStepTick - mLastStepTick) / TICKS_IN_SECOND) < mGame->mNPCs[i].first->getTimeForStepInSec())
-   //	{
-//			continue;
-//		}
+	for (int i = 0; i < mGame->mNPCs.size(); i++)
+	{
+		doSingleNPCStep(i);
+	}
+}
 
-		
-//	}
-	
+void SystemGameLogic::doSingleNPCStep(int _position)
+{
+	if (!mGame->mNPCs[_position].first->isNeedToMove())
+	{
+		return;
+	}
 
+	Coordinate2D selfMapCoord = mGame->mWorld->getTileMapCoordinatesFromISOCoords(mGame->mNPCs[_position].first->getProjectionToTileISOcoord());
+	Coordinate2D subtargetMapCoord = mGame->mNPCs[_position].first->getPath().getCurrentSubDestinationMapCoordinate();
+
+	Coordinate2D diff = selfMapCoord - subtargetMapCoord;
+	//int distance = sqrt(pow((selfMapCoord.getX() - subtargetMapCoord.getX()), 2) + (pow((selfMapCoord.getY() - subtargetMapCoord.getY()), 2)));
+
+	updateDirection(diff);
+
+	mGame->mNPCs[_position].first->setPositionFromTileIsoCoords(mGame->mWorld->getTileISOCoordinatesFromMapCoords(subtargetMapCoord));
+	mGame->mNPCs[_position].second = subtargetMapCoord;
+	mGame->mNPCs[_position].first->getPath().doStep();
 }
 
 void SystemGameLogic::doFireballsStep()
 {
+	for (int i = 0; i < mGame->mFireballs.size(); i++)
+	{
+		doSingleFireballStep(i);
+	}
+}
+
+void SystemGameLogic::doSingleFireballStep(int _position)
+{
+	if (!mGame->mFireballs[_position].first->isNeedToExe())
+	{
+		return;
+	}
+
+	if (mGame->mFireballs[_position].first->getPath().isFinished())
+	{
+		// fireball reached end of map => need delete
+		mGame->mFireballs.erase(mGame->mFireballs.begin() + _position);
+	}
+	else
+	{
+		Coordinate2D subtargetMapCoord = mGame->mFireballs[_position].first->getPath().getCurrentSubDestinationMapCoordinate();
+		mGame->mFireballs[_position].first->setPositionFromTileIsoCoords(mGame->mWorld->getTileISOCoordinatesFromMapCoords(subtargetMapCoord));
+		mGame->mFireballs[_position].second = subtargetMapCoord;
+		mGame->mFireballs[_position].first->getPath().doStep();
+	}
+}
+
+void SystemGameLogic::doCannonsStep()
+{
+	for (int i = 0; i < mGame->mCannons.size(); i++)
+	{
+		doSingleCannonStep(i);
+	}
+}
+
+void SystemGameLogic::doSingleCannonStep(int _position)
+{
+	if (!mGame->mCannons[_position].first->fire())
+	{
+		return;
+	}
+
+	Fireball* newFireball = new Fireball();
+	
+	switch (mGame->mCannons[_position].first->getType())
+	{
+		case WallType::RIGHT:
+		{
+			newFireball->setDirection(EntityDirection::DOWN_LEFT);
+			Coordinate2D newFireballmapCoord = Coordinate2D(mGame->mCannons[_position].second, 0);
+			newFireball->setPositionFromTileIsoCoords(mGame->mWorld->getTileISOCoordinatesFromMapCoords(newFireballmapCoord));
+			newFireball->setNewPath(generateLineralPath(newFireballmapCoord, Coordinate2D(newFireballmapCoord.getX(), MAP_HEIGHT_TILES - 1)));
+			mGame->mFireballs.push_back(make_pair(newFireball, newFireballmapCoord));
+			break;
+		}
+		case WallType::LEFT:
+		{
+			newFireball->setDirection(EntityDirection::DOWN_RIGHT);
+			Coordinate2D newFireballmapCoord = Coordinate2D(0, mGame->mCannons[_position].second);
+			newFireball->setPositionFromTileIsoCoords(mGame->mWorld->getTileISOCoordinatesFromMapCoords(newFireballmapCoord));
+			newFireball->setNewPath(generateLineralPath(newFireballmapCoord, Coordinate2D(MAP_WIDTH_TILES - 1, newFireballmapCoord.getX())));
+			mGame->mFireballs.push_back(make_pair(newFireball, newFireballmapCoord));
+			break;
+		}
+	}
 }
 
 void SystemGameLogic::updateDirection(Coordinate2D _difference)
@@ -194,13 +273,63 @@ void SystemGameLogic::updateDirection(Coordinate2D _difference)
 		}
 		if (_difference.getY() == 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::RIGHT_DOWN);
+			mGame->mPlayer.first->setDirection(EntityDirection::DOWN_RIGHT);
 		}
 		if (_difference.getY() > 0)
 		{
 			mGame->mPlayer.first->setDirection(EntityDirection::RIGHT);
 		}
 	}
+}
+
+void SystemGameLogic::refreshPath(MoveableEntity* _who, Coordinate2D _currPos)
+{
+	if (_who->getPath().getRouteLength() > 0)
+	{
+		Coordinate2D savedDestination = _who->getPath().getPathDestinationTarget();
+		_who->setNewPath(mGame->mWorldMap.findPath({ _currPos.getX(), _currPos.getY() }, { savedDestination.getX(), savedDestination.getY() }));
+	}	
+}
+
+CoordinateList SystemGameLogic::generateLineralPath(Coordinate2D _startMapCoord, Coordinate2D _finishMapCoord)
+{
+	CoordinateList path;
+
+	if (_startMapCoord.getX() == _finishMapCoord.getX())
+	{
+		if (_startMapCoord.getY() <= _finishMapCoord.getY())
+		{
+			int yCur = _startMapCoord.getY();
+			while (yCur <= _finishMapCoord.getY())
+			{
+				path.push_back({ _startMapCoord.getX(), yCur});
+				yCur++;
+			}
+		}
+		else
+		{
+			//todo
+		}
+	}
+	if (_startMapCoord.getY() == _finishMapCoord.getY())
+	{
+		if (_startMapCoord.getX() <= _finishMapCoord.getX())
+		{
+			int xCur = _startMapCoord.getX();
+			while (xCur <= _finishMapCoord.getX())
+			{
+				path.push_back({ _startMapCoord.getY(), xCur });
+				xCur++;
+			}
+		}
+		else
+		{
+			//todo
+		}
+	}
+	//diagonal todo
+
+	return path;
 }
 
 void SystemGameLogic::updateCursorPosition()
@@ -257,8 +386,8 @@ void SystemGameLogic::updateMouseEventAndQuitEvent()
 				{
 					case SDL_BUTTON_LEFT:
 					{
-						LOG_INFO("ЛКМ pressed1");
-						setPlayerDestination();
+						//LOG_INFO("LMB pressed1");
+						setPlayerDestinationToClickedTile();
 						break;
 					}
 
@@ -312,23 +441,37 @@ void SystemGameLogic::updateKeyboardEvent()
 
 void SystemGameLogic::updateInput()
 {
+	if (!needUpdateInput())
+	{
+		return;
+	}	
+
 	updateCursorPosition();
 	updateMouseEventAndQuitEvent();	
 	updateKeyboardEvent();
+	mLastUpdatedTick = mCurrentUpdateTick;
 }
 
 void SystemGameLogic::firstTimeSetup()
 {
 	mGame->setPlayerSpawnpoint(MAP_LEFT_DOWN_CORNER);
+
+	Coordinate2D policemanSpawn = Coordinate2D(MAP_WIDTH_TILES - 2, 0); //for example
+	NPC* policeman = new NPC();
+	policeman->setPositionFromTileIsoCoords(policemanSpawn);
+	policeman->setNewPath(mGame->mWorldMap.findPath({policemanSpawn.getX(), policemanSpawn.getY()}, {MAP_LEFT_DOWN_CORNER.getX(), MAP_LEFT_DOWN_CORNER.getY() }));
+	mGame->mNPCs.push_back(make_pair(policeman, policemanSpawn));
+
+	int gunSpawn = 4;
+	Cannon* mainGun = new Cannon();
+	mainGun->setType(WallType::RIGHT);
+	mainGun->setPosition(Coordinate2D(mGame->mWorld->getRightWallTileOnSpecificPositionIsoCoord(gunSpawn)));
+	mGame->mCannons.push_back(make_pair(mainGun, gunSpawn));
 }
 
 void SystemGameLogic::run()
 {
-	if (needUpdateInput())
-	{
-		updateInput();
-		mLastUpdatedTick = mCurrentUpdateTick;
-	}
+	updateInput();
 	doWholeGameStep();
 	detectColisions();			
 }

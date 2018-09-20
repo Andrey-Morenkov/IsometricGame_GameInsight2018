@@ -11,7 +11,6 @@ private:
 	int mCurrStep;
 	bool mIsFinished;
 	bool mIsCyclic;
-
 	bool reverseDirection;
 
 public:
@@ -20,9 +19,16 @@ public:
 	~PathWay();
 
 	int getCurrentStep();
+	int getRouteLength();
 	void doStep();
+
 	bool isFinished();
-	Coordinate2D getCurrentSubTargetMapCoordinate();
+	bool isCyclic();
+	bool isReverse();
+
+	Coordinate2D getCurrentSubDestinationMapCoordinate();
+	Coordinate2D getPathDestinationTarget();
+	
 	void setRoute(CoordinateList _newRoute);
 	void clear();
 	void setCyclicMode(bool iscycled);

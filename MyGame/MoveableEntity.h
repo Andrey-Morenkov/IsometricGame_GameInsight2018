@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 #include "PathWay.h"
+#include "Interfaces/Runnable.h"
 
 enum class EntityDirection
 {
@@ -8,33 +9,34 @@ enum class EntityDirection
 	UP,
 	UP_RIGHT,
 	RIGHT,
-	RIGHT_DOWN,
+	DOWN_RIGHT,
 	DOWN,
 	DOWN_LEFT,
 	LEFT
 };
 
-class MoveableEntity : public Entity
+class MoveableEntity : public Entity, public Runnable
 {
 protected:
+
 	EntityDirection mDirection;
-	double          mTimeForStepInSec;
 	PathWay         mPath;
 
-public:
-	MoveableEntity() { mLastUpdatedTick = 0; };
-	virtual ~MoveableEntity() {};
+	void loadTexture() override = 0;
 
-	void render() override = 0;
+public:
+
+	MoveableEntity() {};
+	virtual ~MoveableEntity() {};
+	virtual void render();
 
 	void setDirection(EntityDirection _direction);
-	void setPostition(Coordinate2D _newPos);
-	void setTimeForStepInSec(double _sec);
-	Coordinate2D getPosition();
-	EntityDirection getDirection();
-	double getTimeForStepInSec();
 	void setNewPath(AStar::CoordinateList _newPath);
-
+	EntityDirection getDirection();
 	PathWay& getPath();
-	unsigned int mLastUpdatedTick;
+	bool isNeedToMove();
+
+	virtual void setPositionFromTileIsoCoords(Coordinate2D _targetTileLeftTopCornerCoords);
+	virtual Coordinate2D getTileISOCoordFromSelfPosition();
+	virtual Coordinate2D getProjectionToTileISOcoord() = 0;
 };

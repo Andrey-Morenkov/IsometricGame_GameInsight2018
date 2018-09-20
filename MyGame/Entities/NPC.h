@@ -1,11 +1,18 @@
 #pragma once
-#include "../Entity.h"
-class NPC :	public Entity
+#include "../MoveableEntity.h"
+
+class NPC :	public MoveableEntity
 {
+private:
+
+	void loadTexture() override;
+
 public:
+
 	NPC();
+	NPC(Coordinate2D _startCoord);
 	virtual ~NPC();
 
-	void render() override;
+	Coordinate2D getProjectionToTileISOcoord() override;
 };
 

@@ -4,10 +4,8 @@
 
 PathWay::PathWay()
 {
-	mCurrStep = 0;
-	mIsFinished = true;
+	clear();
 	mIsCyclic = false;
-	reverseDirection = false;
 }
 
 PathWay::PathWay(bool isCyclic) : PathWay()
@@ -25,13 +23,18 @@ int PathWay::getCurrentStep()
 	return mCurrStep;
 }
 
+int PathWay::getRouteLength()
+{
+	return mRoute.size();
+}
+
 void PathWay::doStep()
 {
 	if (mCurrStep == (mRoute.size() - 1))
 	{
 		if (!mIsCyclic)
 		{
-			mIsFinished = true;
+			clear(); //finished!
 		}
 		else
 		{
@@ -65,23 +68,38 @@ bool PathWay::isFinished()
 	return mIsFinished;
 }
 
-Coordinate2D PathWay::getCurrentSubTargetMapCoordinate()
+bool PathWay::isCyclic()
+{
+	return mIsCyclic;
+}
+
+bool PathWay::isReverse()
+{
+	return reverseDirection;
+}
+
+Coordinate2D PathWay::getCurrentSubDestinationMapCoordinate()
 {
 	return Coordinate2D(mRoute[mCurrStep].x, mRoute[mCurrStep].y);
+}
+
+Coordinate2D PathWay::getPathDestinationTarget()
+{
+	return Coordinate2D(mRoute[mRoute.size() - 1].x, mRoute[mRoute.size() - 1].y);
 }
 
 void PathWay::setRoute(CoordinateList _newRoute)
 {
 	mRoute = _newRoute;
-	mCurrStep = 0;
+	mCurrStep = 0; 
 	mIsFinished = false;
 }
 
 void PathWay::clear()
 {
 	mRoute.clear();
-	mCurrStep = 0;
-	mIsFinished = false;
+	mCurrStep = 0; 
+	mIsFinished = true;
 	reverseDirection = false;
 }
 

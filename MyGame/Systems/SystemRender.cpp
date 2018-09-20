@@ -8,7 +8,7 @@ using namespace std;
 bool SystemRender::needRender()
 {
 	mCurrentRenderingTick = SDL_GetTicks();
-	return (((mCurrentRenderingTick - mLastRenderedTick) >= (TICKS_IN_SECOND / mMaxFPS)) && !mGame->isGameOver());
+	return (((mCurrentRenderingTick - mLastRenderedTick) >= (TICKS_PER_SECOND / mMaxFPS)) || mGame->isGameOver());
 }
 
 SystemRender::SystemRender()
@@ -24,7 +24,7 @@ SystemRender::~SystemRender()
 
 void SystemRender::run()
 {
-	if (!needRender() && !mGame->isGameOver())
+	if (!needRender())
 	{
 		return;
 	}
@@ -33,14 +33,17 @@ void SystemRender::run()
 	SDL_RenderClear(mainRenderer);
 
 	mGame->mWorld->render();
+
 	for (int i = 0; i < mGame->mBarriers.size(); i++)
 	{
 		mGame->mBarriers[i].first->render();
 	}
+
 	if (mGame->mMouseCursor->getIsCorrect())
 	{
 		mGame->mMouseCursor->render();
 	}	
+
 	mGame->mPlayer.first->render();
 
 	for (int i = 0; i < mGame->mNPCs.size(); i++)
@@ -50,6 +53,11 @@ void SystemRender::run()
 	for (int i = 0; i < mGame->mCannons.size(); i++)
 	{
 		mGame->mCannons[i].first->render();
+	}
+
+	for (int i = 0; i < mGame->mFireballs.size(); i++)
+	{
+		mGame->mFireballs[i].first->render();
 	}
 
 	SDL_RenderPresent(mainRenderer);

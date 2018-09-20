@@ -34,11 +34,11 @@ public:
 	AStar::Generator mWorldMap;
 
 	//map coordinates, not iso
-	pair<Player*, Coordinate2D>           mPlayer;
-	vector<pair<NPC*, Coordinate2D> >     mNPCs;
-	vector<pair<Barrier*, Coordinate2D> > mBarriers;
-	vector<pair<Cannon*, Coordinate2D> >  mCannons;
-	//Fireball todo
+	pair<Player*, Coordinate2D>            mPlayer;
+	vector<pair<NPC*, Coordinate2D> >      mNPCs;
+	vector<pair<Barrier*, Coordinate2D> >  mBarriers;
+	vector<pair<Cannon*, int> >            mCannons;
+	vector<pair<Fireball*, Coordinate2D> > mFireballs;
 
 	Game();
 	~Game();

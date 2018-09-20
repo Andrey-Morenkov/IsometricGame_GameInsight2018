@@ -18,6 +18,11 @@ private:
 	void renderFloor();
 	void renderStartFinishTiles();
 	void renderWalls();
+	Coordinate2D getRightWallStartISOCoord();
+	Coordinate2D getLeftWallStartISOCoord();
+
+	void loadTexture() override;
+	Coordinate2D getTileOnSpecificPositionISOCoord(Coordinate2D _position);
 
 public:
 	
@@ -27,9 +32,14 @@ public:
 
 	void render() override;
 
+	Coordinate2D getRightWallTileOnSpecificPositionIsoCoord(int _position);
+	Coordinate2D getLeftWallTileOnSpecificPositionIsoCoord(int _position);
+	int getRightWallTileMapCoordbyIsoCoord(Coordinate2D _position);
+	int getLeftWallTileMapCoordbyIsoCoord(Coordinate2D _position);
+
 	void setStartingPoint(Coordinate2D _startingPoint);
 	Coordinate2D getStartingPoint();
-	Coordinate2D& getStartingPointLink();
+	
 	Coordinate2D getTileISOCoordinatesFromISOCoords(Coordinate2D _incomingISOCoordinates); // returns upper left corner coord of local tile
 	Coordinate2D getTileISOCoordinatesFromMapCoords(Coordinate2D _incomintMapCoordinates); // returns upper left corner coord of local tile
 	Coordinate2D getTileMapCoordinatesFromISOCoords(Coordinate2D _incomingISOCoordinates); // returns tile number ,(0,0) for example
@@ -48,8 +58,3 @@ enum class WallType
 	LEFT = 0,
 	RIGHT
 };
-
-#define MAP_LEFT_DOWN_CORNER Coordinate2D(0, MAP_WIDTH_TILES - 1)
-#define MAP_RIGHT_UP_CORNER Coordinate2D(MAP_HEIGHT_TILES - 1, 0)
-#define MAP_START_POINT MAP_LEFT_DOWN_CORNER
-#define MAP_FINISH_POINT MAP_RIGHT_UP_CORNER

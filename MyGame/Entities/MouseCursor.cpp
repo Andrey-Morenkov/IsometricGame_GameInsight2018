@@ -2,11 +2,16 @@
 #include "../Settings.h"
 #include "../TextureWorker.h"
 
+void MouseCursor::loadTexture()
+{
+	mSelfTexture.setWidthEachTextureTypeInPixels(MOUSE_TEXTURE_WIDTH_IN_PIXELS);
+	mSelfTexture.setHeightEachTextureTypeInPixels(MOUSE_TEXTURE_HEIGHT_IN_PIXELS);
+	mSelfTexture.loadFromPath(MOUSE_TEXTURE_PATH);
+}
+
 MouseCursor::MouseCursor()
 {
-	mTextureCursor.setWidthEachTextureTypeInPixels(MOUSE_TEXTURE_WIDTH_IN_PIXELS);
-	mTextureCursor.setHeightEachTextureTypeInPixels(MOUSE_TEXTURE_HEIGHT_IN_PIXELS);
-	mTextureCursor.loadFromPath(MOUSE_TEXTURE_PATH);
+	loadTexture();
 	isCorrect = true;
 }
 
@@ -14,26 +19,9 @@ MouseCursor::~MouseCursor()
 {
 }
 
-
 void MouseCursor::render()
 {
-	TextureWorker::renderTextureRegion(mTextureCursor, mPosition, &mTextureCursor.getTextureTypes()[(int)TileType::DEFAULT]);
-}
-
-Texture& MouseCursor::getTextureCursor()
-{
-	return mTextureCursor;
-}
-
-Coordinate2D MouseCursor::getPosition()
-{
-	return mPosition;
-}
-
-void MouseCursor::setPosition(Coordinate2D _newPosition)
-{
-	//LOG_ERROR("New mouse position OLD = (%d,%d), NEW = (%d,%d)", mPosition.getX(), mPosition.getY(), _newPosition.getX(), _newPosition.getY());
-	mPosition = _newPosition;
+	TextureWorker::renderTextureRegion(mSelfTexture, mPosition, &mSelfTexture.getTextureTypes()[(int)TileType::DEFAULT]);
 }
 
 void MouseCursor::setIsCorrect(bool _newState)

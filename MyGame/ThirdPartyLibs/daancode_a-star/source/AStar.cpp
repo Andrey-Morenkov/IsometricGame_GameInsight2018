@@ -122,7 +122,7 @@ AStar::CoordinateList AStar::Generator::findPath(Vec2i source_, Vec2i target_)
         current = current->parent;
     }
 	CoordinateList frontList;
-	for (int i = cnt-2; i >= 0; i--)
+	for (int i = cnt-1; i >= 0; i--)
 	{
 		frontList.push_back(path[i]);
 	}

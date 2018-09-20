@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include "../System.h"
 #include "../ThirdPartyLibs/daancode_a-star/source/AStar.hpp"
+#include "../MoveableEntity.h"
 
 class SystemGameLogic :	public System
 {
@@ -27,18 +28,25 @@ private:
 	bool needUpdateInput();
 
 	void addOrRemoveBarrier();
-	void setPlayerDestination();
+	void setPlayerDestinationToClickedTile();
 
 	void doWholeGameStep();
 	void detectColisions();
 	void checkPlayerTile();
 	void checkPlayerNPCcollision();
 	void checkPlayerFireballCollision();
+	
 	void doPlayerStep();
 	void doNPCsStep();
+	void doSingleNPCStep(int _position);
 	void doFireballsStep();
+	void doSingleFireballStep(int _position);
+	void doCannonsStep();
+	void doSingleCannonStep(int _position);
 
 	void updateDirection(Coordinate2D _difference);
+	void refreshPath(MoveableEntity* _who, Coordinate2D _currPos);
+	CoordinateList generateLineralPath(Coordinate2D _startMapCoord, Coordinate2D _finishMapCoord);
 public:
 	SystemGameLogic();
 	virtual ~SystemGameLogic();

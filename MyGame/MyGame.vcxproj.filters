@@ -34,6 +34,9 @@
     <Filter Include="Файлы заголовков\ThirdPartyLibs">
       <UniqueIdentifier>{e089ef1b-0666-437e-99a5-fcda0c7ef087}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Исходные файлы\Interfaces">
+      <UniqueIdentifier>{7229616f-6e4c-4c7b-980b-1ca9848c2106}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -58,9 +61,6 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="Entity.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Entities\Barrier.cpp">
@@ -90,17 +90,26 @@
     <ClCompile Include="Systems\SystemGameLogic.cpp">
       <Filter>Исходные файлы\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="System.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="PathWay.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveableEntity.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="ThirdPartyLibs\daancode_a-star\source\AStar.cpp">
       <Filter>Исходные файлы\ThirdPartyLibs</Filter>
+    </ClCompile>
+    <ClCompile Include="Interfaces\Renderable.cpp">
+      <Filter>Исходные файлы\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Исходные файлы\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveableEntity.cpp">
+      <Filter>Исходные файлы\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Interfaces\Runnable.cpp">
+      <Filter>Исходные файлы\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="System.cpp">
+      <Filter>Исходные файлы\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -125,9 +134,6 @@
     <ClInclude Include="Core.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="Coordinate2D.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -135,12 +141,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="System.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="Fireball.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Entities\Barrier.h">
@@ -176,14 +176,20 @@
     <ClInclude Include="Systems\SystemGameLogic.h">
       <Filter>Файлы заголовков\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="MoveableEntity.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="PathWay.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="ThirdPartyLibs\daancode_a-star\source\AStar.hpp">
       <Filter>Файлы заголовков\ThirdPartyLibs</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Файлы заголовков\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveableEntity.h">
+      <Filter>Файлы заголовков\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Файлы заголовков\Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

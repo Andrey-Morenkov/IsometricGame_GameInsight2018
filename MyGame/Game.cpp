@@ -44,7 +44,7 @@ void Game::mUpdateAllEntityCoordinates()
 	for (int i = 0; i < mNPCs.size(); i++)
 	{
 		newPos = mWorld->getTileISOCoordinatesFromMapCoords(mNPCs[i].second);
-		// TO DO NPC
+		mNPCs[i].first->setPositionFromTileIsoCoords(newPos);
 	}
 
 	for (int i = 0; i < mBarriers.size(); i++)
@@ -54,8 +54,21 @@ void Game::mUpdateAllEntityCoordinates()
 	}
 	for (int i = 0; i < mCannons.size(); i++)
 	{
-		newPos = mWorld->getTileISOCoordinatesFromMapCoords(mCannons[i].second);
-		// TO DO Cannons
+		switch (mCannons[i].first->getType())
+		{
+			case WallType::RIGHT:
+			{
+				newPos = mWorld->getRightWallTileOnSpecificPositionIsoCoord(mCannons[i].second);
+				mCannons[i].first->setPosition(newPos);
+				break;
+			}
+			case WallType::LEFT:
+			{
+				newPos = mWorld->getRightWallTileOnSpecificPositionIsoCoord(mCannons[i].second);
+				mCannons[i].first->setPosition(newPos);
+				break;
+			}
+		}
 	}
 }
 
@@ -79,15 +92,14 @@ void Game::createNewGame()
 	mWorld = new World(MAP_WIDTH_TILES, MAP_HEIGHT_TILES);
 	mMouseCursor = new MouseCursor();
 
-	Player* currPlayer = new Player();
-	Coordinate2D playerStartCoord = Coordinate2D(0, 0);
-
-	mPlayer.first = currPlayer;
-	mPlayer.second = playerStartCoord;
+	mPlayer.first = new Player();
+	mPlayer.second = MAP_LEFT_DOWN_CORNER;
+	mPlayer.first->setPositionFromTileIsoCoords(mWorld->getTileISOCoordinatesFromMapCoords(MAP_LEFT_DOWN_CORNER));
 
 	mWorldMap.setWorldSize({ MAP_WIDTH_TILES, MAP_HEIGHT_TILES });
 	mWorldMap.setHeuristic(AStar::Heuristic::euclidean);
-	mWorldMap.setDiagonalMovement(ALLOW_DIAGONAL_MOVEMENT);
+	mWorldMap.setDiagonalMovement(IS_ALLOW_DIAGONAL_MOVEMENT);
+	changeStartingPoint(Coordinate2D(100, 100));
 }
 
 bool Game::isGameOver()

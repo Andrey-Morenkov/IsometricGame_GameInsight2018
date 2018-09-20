@@ -141,6 +141,8 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Initializer.cpp" />
+    <ClCompile Include="Interfaces\Renderable.cpp" />
+    <ClCompile Include="Interfaces\Runnable.cpp" />
     <ClCompile Include="IsometricEngine.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Coordinate2D.cpp" />
@@ -164,7 +166,6 @@
     <ClInclude Include="Entities\World.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Coordinate2D.h" />
-    <ClInclude Include="Fireball.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="MoveableEntity.h" />
     <ClInclude Include="Interfaces\Renderable.h" />

@@ -1,6 +1,5 @@
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\vc141.pdb
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\vc141.idb
-c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\texture.obj
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\systemgamelogic.obj
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\system.obj
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\pathway.obj
@@ -8,6 +7,8 @@ c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\moveableentity.obj
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\coordinate2d.obj
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\main.obj
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\isometricengine.obj
+c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\runnable.obj
+c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\renderable.obj
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\initializer.obj
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\game.obj
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\entity.obj
@@ -21,6 +22,14 @@ c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\barrier.obj
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\core.obj
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\astar.obj
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\textureworker.obj
+c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\texture.obj
+c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\systemrender.obj
+c:\sdlgame\isometricgame_gameinsight2018\debug\mygame.exe
+c:\sdlgame\isometricgame_gameinsight2018\debug\mygame.ilk
+c:\sdlgame\isometricgame_gameinsight2018\debug\mygame.pdb
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\mygame.tlog\cl.command.1.tlog
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\mygame.tlog\cl.read.1.tlog
 c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\mygame.tlog\cl.write.1.tlog
+c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\mygame.tlog\link.command.1.tlog
+c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\mygame.tlog\link.read.1.tlog
+c:\sdlgame\isometricgame_gameinsight2018\mygame\debug\mygame.tlog\link.write.1.tlog

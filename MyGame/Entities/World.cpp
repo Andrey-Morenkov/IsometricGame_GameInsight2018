@@ -184,7 +184,6 @@ Coordinate2D World::getLeftWallStartISOCoord()
 	Coordinate2D res = getRightWallStartISOCoord();
 
 	res.setX(res.getX() - mTextureWalls.getWidthEachTextureTypeInPixels());
-	
 	return res;
 }
 
@@ -209,7 +208,7 @@ Coordinate2D World::getRightWallTileOnSpecificPositionIsoCoord(int _position)
 
 Coordinate2D World::getLeftWallTileOnSpecificPositionIsoCoord(int _position)
 {
-	Coordinate2D res = getRightWallStartISOCoord();
+	Coordinate2D res = getLeftWallStartISOCoord();
 	IsometricEngine::convertIsometricTo2D(res);
 
 	res.setX(res.getX());

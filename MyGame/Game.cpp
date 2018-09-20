@@ -108,11 +108,25 @@ void Game::createNewGame()
 	policeman->getPath().setCyclicMode(true);
 	mNPCs.push_back(make_pair(policeman, policemanSpawn));
 
+	Coordinate2D policemanSpawn2 = Coordinate2D(0, 6); //for example
+	NPC* policeman2 = new NPC();
+	policeman2->setPositionFromTileIsoCoords(policemanSpawn2);
+	policeman2->setNewPath(mWorldMap.findPath({ policemanSpawn2.getX(), policemanSpawn2.getY() }, { MAP_RIGHT_UP_CORNER.getX(), MAP_RIGHT_UP_CORNER.getY() }));
+	policeman2->getPath().setCyclicMode(true);
+	mNPCs.push_back(make_pair(policeman2, policemanSpawn2));
+
 	int gunSpawn = 4;
 	Cannon* mainGun = new Cannon();
 	mainGun->setType(WallType::RIGHT);
+	mainGun->setExeTimeInSec(0.9);
 	mainGun->setPosition(Coordinate2D(mWorld->getRightWallTileOnSpecificPositionIsoCoord(gunSpawn)));
 	mCannons.push_back(make_pair(mainGun, gunSpawn));
+
+	int gunSpawn2 = 9;
+	Cannon* mainGun2 = new Cannon();
+	mainGun2->setType(WallType::RIGHT);
+	mainGun2->setPosition(Coordinate2D(mWorld->getRightWallTileOnSpecificPositionIsoCoord(gunSpawn)));
+	mCannons.push_back(make_pair(mainGun2, gunSpawn2));
 }
 
 bool Game::isGameOver()

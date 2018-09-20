@@ -8,6 +8,7 @@ class MouseCursor : public Entity
 {
 private:
 
+	Coordinate2D rawISO;
 	bool isCorrect;
 	void loadTexture() override;
 
@@ -19,5 +20,7 @@ public:
 
 	void setIsCorrect(bool _newState);
 	bool getIsCorrect();
+	Coordinate2D getRawISO();
+	void setRawISO(Coordinate2D _raw);
 };
 

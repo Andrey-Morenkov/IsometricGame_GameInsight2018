@@ -41,8 +41,8 @@ void SystemGameLogic::addOrRemoveBarrier()
 		return;
 	}
 
-	Coordinate2D clickedTileInMapCoord = mGame->mWorld->getTileMapCoordinatesFromISOCoords(mGame->mMouseCursor->getPosition());
-	Coordinate2D clickedTileInIsoCoord = mGame->mWorld->getTileISOCoordinatesFromISOCoords(mGame->mMouseCursor->getPosition());
+	Coordinate2D clickedTileInMapCoord = mGame->mWorld->getTileMapCoordinatesFromISOCoords(mGame->mMouseCursor->getRawISO());
+	Coordinate2D clickedTileInIsoCoord = mGame->mWorld->getTileISOCoordinatesFromISOCoords(mGame->mMouseCursor->getRawISO());
 	int pos = mGame->getBarrierPositionByMapCoord(clickedTileInMapCoord);
 	
 	if (pos != (int)ResultCode::NOT_EXIST)
@@ -76,7 +76,7 @@ void SystemGameLogic::setPlayerDestinationToClickedTile()
 
 	
 	Coordinate2D playerMapCoord = mGame->mPlayer.second;
-	Coordinate2D clickedTileInMapCoord = mGame->mWorld->getTileMapCoordinatesFromISOCoords(mGame->mMouseCursor->getPosition());
+	Coordinate2D clickedTileInMapCoord = mGame->mWorld->getTileMapCoordinatesFromISOCoords(mGame->mMouseCursor->getRawISO());
 
 	if (playerMapCoord != clickedTileInMapCoord)
 	{
@@ -110,10 +110,26 @@ void SystemGameLogic::checkPlayerTile()
 
 void SystemGameLogic::checkPlayerNPCcollision()
 {
+	for (int i = 0; i < mGame->mNPCs.size(); i++)
+	{
+		if (mGame->mPlayer.second == mGame->mNPCs[i].second)
+		{
+			mGame->setGameOver(true);
+			mGame->setExitReason(ExitReason::DEAD);
+		}
+	}
 }
 
 void SystemGameLogic::checkPlayerFireballCollision()
 {
+	for (int i = 0; i < mGame->mFireballs.size(); i++)
+	{
+		if (mGame->mPlayer.second == mGame->mFireballs[i].second)
+		{
+			mGame->setGameOver(true);
+			mGame->setExitReason(ExitReason::DEAD);
+		}
+	}
 }
 
 void SystemGameLogic::doPlayerStep()
@@ -129,7 +145,7 @@ void SystemGameLogic::doPlayerStep()
 	Coordinate2D diff = selfMapCoord - subtargetMapCoord;
 	//int distance = sqrt(pow((selfMapCoord.getX() - subtargetMapCoord.getX()), 2) + (pow((selfMapCoord.getY() - subtargetMapCoord.getY()), 2)));
 	
-	updateDirection(diff);
+	updateDirection(mGame->mPlayer.first, diff);
 
 	mGame->mPlayer.first->setPositionFromTileIsoCoords(mGame->mWorld->getTileISOCoordinatesFromMapCoords(subtargetMapCoord));
 	mGame->mPlayer.second = subtargetMapCoord;
@@ -157,7 +173,7 @@ void SystemGameLogic::doSingleNPCStep(int _position)
 	Coordinate2D diff = selfMapCoord - subtargetMapCoord;
 	//int distance = sqrt(pow((selfMapCoord.getX() - subtargetMapCoord.getX()), 2) + (pow((selfMapCoord.getY() - subtargetMapCoord.getY()), 2)));
 
-	updateDirection(diff);
+	updateDirection(mGame->mNPCs[_position].first, diff);
 
 	mGame->mNPCs[_position].first->setPositionFromTileIsoCoords(mGame->mWorld->getTileISOCoordinatesFromMapCoords(subtargetMapCoord));
 	mGame->mNPCs[_position].second = subtargetMapCoord;
@@ -233,28 +249,28 @@ void SystemGameLogic::doSingleCannonStep(int _position)
 	}
 }
 
-void SystemGameLogic::updateDirection(Coordinate2D _difference)
+void SystemGameLogic::updateDirection(MoveableEntity* _who, Coordinate2D _difference)
 {
 	if (_difference.getX() > 0)
 	{
 		if (_difference.getY() < 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::LEFT);
+			_who->setDirection(EntityDirection::LEFT);
 		}
 		if (_difference.getY() == 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::UP_LEFT);
+			_who->setDirection(EntityDirection::UP_LEFT);
 		}
 		if (_difference.getY() > 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::UP);
+			_who->setDirection(EntityDirection::UP);
 		}
 	}
 	if (_difference.getX() == 0)
 	{
 		if (_difference.getY() < 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::DOWN_LEFT);
+			_who->setDirection(EntityDirection::DOWN_LEFT);
 		}
 		if (_difference.getY() == 0)
 		{
@@ -262,22 +278,22 @@ void SystemGameLogic::updateDirection(Coordinate2D _difference)
 		}
 		if (_difference.getY() > 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::UP_RIGHT);
+			_who->setDirection(EntityDirection::UP_RIGHT);
 		}
 	}
 	if (_difference.getX() < 0)
 	{
 		if (_difference.getY() < 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::DOWN);
+			_who->setDirection(EntityDirection::DOWN);
 		}
 		if (_difference.getY() == 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::DOWN_RIGHT);
+			_who->setDirection(EntityDirection::DOWN_RIGHT);
 		}
 		if (_difference.getY() > 0)
 		{
-			mGame->mPlayer.first->setDirection(EntityDirection::RIGHT);
+			_who->setDirection(EntityDirection::RIGHT);
 		}
 	}
 }
@@ -338,6 +354,7 @@ void SystemGameLogic::updateCursorPosition()
 	int y;
 	SDL_GetMouseState(&x, &y);
 	Coordinate2D newcor(x, y);
+	mGame->mMouseCursor->setRawISO(newcor);
 	Coordinate2D mMapPos = mGame->mWorld->getTileMapCoordinatesFromISOCoords(newcor);
 	if ((mMapPos.getX() < 0) || (mMapPos.getY() < 0) || (mMapPos.getX() > (MAP_WIDTH_TILES - 1) || (mMapPos.getY() > (MAP_HEIGHT_TILES - 1))))
 	{
@@ -432,6 +449,12 @@ void SystemGameLogic::updateKeyboardEvent()
 	{
 		newWorldPosition.setX(newWorldPosition.getX() - WORLD_SCROLL_SPEED);
 	}
+	if (mKeystate[SDL_SCANCODE_X])
+	{
+		//Easter egg, realise famous meme "press x to win"
+		mGame->setGameOver(true);
+		mGame->setExitReason(ExitReason::FINISHED);
+	}
 	if (newWorldPosition != mGame->mWorld->getStartingPoint())
 	{
 		//something changed
@@ -455,18 +478,7 @@ void SystemGameLogic::updateInput()
 void SystemGameLogic::firstTimeSetup()
 {
 	mGame->setPlayerSpawnpoint(MAP_LEFT_DOWN_CORNER);
-
-	Coordinate2D policemanSpawn = Coordinate2D(MAP_WIDTH_TILES - 2, 0); //for example
-	NPC* policeman = new NPC();
-	policeman->setPositionFromTileIsoCoords(policemanSpawn);
-	policeman->setNewPath(mGame->mWorldMap.findPath({policemanSpawn.getX(), policemanSpawn.getY()}, {MAP_LEFT_DOWN_CORNER.getX(), MAP_LEFT_DOWN_CORNER.getY() }));
-	mGame->mNPCs.push_back(make_pair(policeman, policemanSpawn));
-
-	int gunSpawn = 4;
-	Cannon* mainGun = new Cannon();
-	mainGun->setType(WallType::RIGHT);
-	mainGun->setPosition(Coordinate2D(mGame->mWorld->getRightWallTileOnSpecificPositionIsoCoord(gunSpawn)));
-	mGame->mCannons.push_back(make_pair(mainGun, gunSpawn));
+	mGame->mUpdateAllEntityCoordinates();
 }
 
 void SystemGameLogic::run()
@@ -486,7 +498,7 @@ void SystemGameLogic::waitUntilNotPressedAnykey()
 			switch (mCurrentEvent.type)
 			{
 				case SDL_QUIT:
-				case SDL_KEYUP:
+				//case SDL_KEYUP:
 				{
 					stop = true;
 				}

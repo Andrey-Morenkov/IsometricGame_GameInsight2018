@@ -13,7 +13,7 @@ NPC::NPC()
 	mDirection = EntityDirection::UP_LEFT; //default
 	loadTexture();
 	mTimeExeInSec = NPC_SPEED;
-	mPath.setCyclicMode(false);
+	//mPath.setCyclicMode(true);
 }
 
 NPC::NPC(Coordinate2D _startCoord) : NPC()

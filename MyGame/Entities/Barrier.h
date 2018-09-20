@@ -6,6 +6,7 @@ class Barrier :	public Entity
 private:
 
 	int getRandomTexture();
+	int textureType;
 
 	void loadTexture() override;
 

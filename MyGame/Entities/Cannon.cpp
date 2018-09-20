@@ -12,7 +12,7 @@ void Cannon::loadTexture()
 Cannon::Cannon()
 {
 	loadTexture();
-	mTimeExeInSec = CANNON_SHOTS_PER_MIN;
+	mTimeExeInSec = 60 / CANNON_SHOTS_PER_MIN;
 }
 
 Cannon::Cannon(Coordinate2D _startCoord) : Cannon()

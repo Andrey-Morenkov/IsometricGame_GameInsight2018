@@ -18,6 +18,7 @@ void Barrier::loadTexture()
 Barrier::Barrier()
 {
 	loadTexture();
+	textureType = getRandomTexture();
 }
 
 
@@ -27,5 +28,5 @@ Barrier::~Barrier()
 
 void Barrier::render()
 {
-	TextureWorker::renderTextureRegion(mSelfTexture, mPosition, &mSelfTexture.getTextureTypes()[getRandomTexture()]);
+	TextureWorker::renderTextureRegion(mSelfTexture, mPosition, &mSelfTexture.getTextureTypes()[textureType]);
 }

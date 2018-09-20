@@ -21,13 +21,13 @@
 
 // ---------- Game Settings ----------
 #define WORLD_SCROLL_SPEED 20                /*changeable*/
-#define IS_ALLOW_DIAGONAL_MOVEMENT true         /*changeable*/
+#define IS_ALLOW_DIAGONAL_MOVEMENT true      /*changeable*/
 #define MAP_START_POINT MAP_LEFT_DOWN_CORNER /*changeable*/
 #define MAP_FINISH_POINT MAP_RIGHT_UP_CORNER /*changeable*/
-#define PLAYER_SPEED 0.8                     /*changeable, less is faster*/
-#define NPC_SPEED 0.8                        /*changeable, less is faster*/
+#define PLAYER_SPEED 0.2                     /*changeable, less is faster*/
+#define NPC_SPEED 0.5                        /*changeable, less is faster*/
 #define FIREBALL_SPEED 0.1                   /*changeable, less is faster*/
-#define CANNON_SHOTS_PER_MIN 30              /*changeable, less is faster*/
+#define CANNON_SHOTS_PER_MIN 20              /*changeable, less is faster*/
 // ---------- /Game Settings ----------
 
 // ---------- Texture Files Settings ---------- /*DON'T TOUCH ANYTHING*/

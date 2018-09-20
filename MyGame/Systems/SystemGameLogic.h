@@ -44,7 +44,7 @@ private:
 	void doCannonsStep();
 	void doSingleCannonStep(int _position);
 
-	void updateDirection(Coordinate2D _difference);
+	void updateDirection(MoveableEntity* _who, Coordinate2D _difference);
 	void refreshPath(MoveableEntity* _who, Coordinate2D _currPos);
 	CoordinateList generateLineralPath(Coordinate2D _startMapCoord, Coordinate2D _finishMapCoord);
 public:

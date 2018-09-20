@@ -25,7 +25,7 @@ private:
 
 	bool mIsGameOver;
 	ExitReason mWhyExit;
-	void mUpdateAllEntityCoordinates();
+	
 
 public:
 		
@@ -50,7 +50,7 @@ public:
 	void changeStartingPoint(Coordinate2D _newStartingPoint);
 	
 	int getBarrierPositionByMapCoord(Coordinate2D _possibleBarrierMapCoords);
-
+	void mUpdateAllEntityCoordinates();
 	ExitReason getExitReason();
 	void setExitReason(ExitReason _reason);
 };

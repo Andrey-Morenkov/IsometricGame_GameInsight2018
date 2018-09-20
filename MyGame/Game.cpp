@@ -100,6 +100,19 @@ void Game::createNewGame()
 	mWorldMap.setHeuristic(AStar::Heuristic::euclidean);
 	mWorldMap.setDiagonalMovement(IS_ALLOW_DIAGONAL_MOVEMENT);
 	changeStartingPoint(Coordinate2D(100, 100));
+
+	Coordinate2D policemanSpawn = Coordinate2D(MAP_WIDTH_TILES - 2, 0); //for example
+	NPC* policeman = new NPC();
+	policeman->setPositionFromTileIsoCoords(policemanSpawn);
+	policeman->setNewPath(mWorldMap.findPath({ policemanSpawn.getX(), policemanSpawn.getY() }, { MAP_LEFT_DOWN_CORNER.getX(), MAP_LEFT_DOWN_CORNER.getY() }));
+	policeman->getPath().setCyclicMode(true);
+	mNPCs.push_back(make_pair(policeman, policemanSpawn));
+
+	int gunSpawn = 4;
+	Cannon* mainGun = new Cannon();
+	mainGun->setType(WallType::RIGHT);
+	mainGun->setPosition(Coordinate2D(mWorld->getRightWallTileOnSpecificPositionIsoCoord(gunSpawn)));
+	mCannons.push_back(make_pair(mainGun, gunSpawn));
 }
 
 bool Game::isGameOver()

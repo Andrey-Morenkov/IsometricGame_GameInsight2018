@@ -1,2 +1,56 @@
-﻿  MoveableEntity.cpp
+﻿  Core.cpp
+  Barrier.cpp
+  Cannon.cpp
+  Fireball.cpp
+  MouseCursor.cpp
+  NPC.cpp
+  Player.cpp
+  World.cpp
+c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(80): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(81): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(99): warning C4018: <: несоответствие типов со знаком и без знака
+c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(101): warning C4018: <: несоответствие типов со знаком и без знака
+c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(103): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(135): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(136): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(143): warning C4018: <: несоответствие типов со знаком и без знака
+c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(151): warning C4018: <: несоответствие типов со знаком и без знака
+c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(176): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\entities\world.cpp(177): warning C4244: аргумент: преобразование "double" в "int", возможна потеря данных
+  Entity.cpp
+  Game.cpp
+c:\sdlgame\isometricgame_gameinsight2018\mygame\game.cpp(19): warning C4018: <: несоответствие типов со знаком и без знака
+c:\sdlgame\isometricgame_gameinsight2018\mygame\game.cpp(44): warning C4018: <: несоответствие типов со знаком и без знака
+c:\sdlgame\isometricgame_gameinsight2018\mygame\game.cpp(50): warning C4018: <: несоответствие типов со знаком и без знака
+c:\sdlgame\isometricgame_gameinsight2018\mygame\game.cpp(55): warning C4018: <: несоответствие типов со знаком и без знака
+  Initializer.cpp
+c:\sdlgame\isometricgame_gameinsight2018\mygame\initializer.cpp(12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Renderable.cpp
+  Runnable.cpp
+  IsometricEngine.cpp
+c:\sdlgame\isometricgame_gameinsight2018\mygame\isometricengine.cpp(13): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\isometricengine.cpp(22): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+c:\sdlgame\isometricgame_gameinsight2018\mygame\isometricengine.cpp(23): warning C4244: инициализация: преобразование "double" в "int", возможна потеря данных
+  main.cpp
+  Coordinate2D.cpp
+  MoveableEntity.cpp
+  PathWay.cpp
+  System.cpp
+  SystemGameLogic.cpp
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(113): warning C4018: <: несоответствие типов со знаком и без знака
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(125): warning C4018: <: несоответствие типов со знаком и без знака
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(157): warning C4018: <: несоответствие типов со знаком и без знака
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(185): warning C4018: <: несоответствие типов со знаком и без знака
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemgamelogic.cpp(214): warning C4018: <: несоответствие типов со знаком и без знака
+  Создание кода...
+  Компиляция...
+  SystemRender.cpp
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemrender.cpp(37): warning C4018: <: несоответствие типов со знаком и без знака
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemrender.cpp(49): warning C4018: <: несоответствие типов со знаком и без знака
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemrender.cpp(53): warning C4018: <: несоответствие типов со знаком и без знака
+c:\sdlgame\isometricgame_gameinsight2018\mygame\systems\systemrender.cpp(58): warning C4018: <: несоответствие типов со знаком и без знака
+  Texture.cpp
+  TextureWorker.cpp
+  AStar.cpp
+  Создание кода...
   MyGame.vcxproj -> C:\SDLgame\IsometricGame_GameInsight2018\Debug\MyGame.exe

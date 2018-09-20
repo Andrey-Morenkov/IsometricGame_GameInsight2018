@@ -33,3 +33,13 @@ bool MouseCursor::getIsCorrect()
 {
 	return isCorrect;
 }
+
+Coordinate2D MouseCursor::getRawISO()
+{
+	return rawISO;
+}
+
+void MouseCursor::setRawISO(Coordinate2D _raw)
+{
+	rawISO = _raw;
+}
